@@ -21,7 +21,7 @@ return new class extends Migration
             //LLave foranea de subcategory
             $table->foreignId('subcategory_id')->constrained('subcategories');
 
-            $table->integer('quantity');
+            $table->integer('quantity')->nullable();
 
             $table->timestamps();
         });

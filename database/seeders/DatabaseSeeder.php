@@ -37,5 +37,8 @@ class DatabaseSeeder extends Seeder
 
         //LLamar al SubcategorySeeder
         $this->call(SubcategorySeeder::class);
+
+        //LLamar al ProductSeeder
+        $this->call(ProductSeeder::class);
     }
 }
