@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('image');
-            $table->boolean('color');
-            $table->boolean('size');
+
+            $table->boolean('color')->default(false);
+            $table->boolean('size')->default(false);
             
             //LLave foranea a category
             $table->foreignId('category_id')->constrained('categories');

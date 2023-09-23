@@ -11,7 +11,9 @@ class Color extends Model
     use HasFactory;
 
         //Habilitar asignacion masiva
-        protected $fillable = ['name'];
+        protected $fillable = [
+            'name'
+        ];
 
         //Relacion N a N entre Colors y Products
         public function products() : BelongsToMany
