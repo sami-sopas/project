@@ -35,7 +35,7 @@ class Product extends Model
     //Relacion N a N entre Products y Colors. Los colores que le perteneces a un product
     public function colors(): BelongsToMany
     {
-        return $this->belongsToMany(Colors::class);
+        return $this->belongsToMany(Color::class);
     }
 
     //Relacion polimorfica

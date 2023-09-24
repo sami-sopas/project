@@ -40,5 +40,11 @@ class DatabaseSeeder extends Seeder
 
         //LLamar al ProductSeeder
         $this->call(ProductSeeder::class);
+
+        //LLamar a ColorSeeder
+        $this->call(ColorSeeder::class);
+
+        //LLamar al Color-ProductSeeder
+        $this->call(ColorProductSeeder::class);
     }
 }
