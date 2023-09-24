@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Eloquent\Builder; //Para consultas de las relaciones
 use App\Models\Product;
-use App\Models\Color;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Size;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 
@@ -46,5 +48,8 @@ class DatabaseSeeder extends Seeder
 
         //LLamar al Color-ProductSeeder
         $this->call(ColorProductSeeder::class);
+
+        //LLamar a SizeSeeder
+        $this->call(SizeSeeder::class);
     }
 }

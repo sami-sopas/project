@@ -22,6 +22,7 @@ class SubcategorySeeder extends Seeder
                 'name' => 'Camisas',
                 'slug' => Str::slug('Camisas'),
                 'color' => true,
+                'size' => true,
             ],
             [
                 'category_id' => 1,
@@ -39,6 +40,7 @@ class SubcategorySeeder extends Seeder
                 'name' => 'Blusas',
                 'slug' => Str::slug('Blusas'),
                 'color' => true,
+                'size' => true,
             ],
             [
                 'category_id' => 2,
@@ -56,6 +58,7 @@ class SubcategorySeeder extends Seeder
                 'name' => 'Camisas',
                 'slug' => Str::slug('Camisas'),
                 'color' => true,
+                'size' => true,
             ],
             [
                 'category_id' => 3,
