@@ -15,25 +15,32 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Styles -->
+        <!-- Iconos font awesome -->
+        <link rel="stylesheet" href=" {{ asset('vendor/fontawesome-free-6.4.2-web/css/all.min.css') }}">
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        <x-banner />
+        <x-banner/>
 
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @livewire('navigation-menu')
+            <!-- LLama a un componente de livewire -->
+            @livewire('nav-bar')
 
+            {{-- 
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white dark:bg-gray-800 shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        <!-- Slot por nombre, se renderiza con el x-slot name="header" -->
                         {{ $header }}
                     </div>
                 </header>
             @endif
+            {{ --}}
 
             <!-- Page Content -->
             <main>
+                <!-- En este slot se renderiza el dashboard -->
                 {{ $slot }}
             </main>
         </div>
