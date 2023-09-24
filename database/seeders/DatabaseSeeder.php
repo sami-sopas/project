@@ -23,11 +23,13 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         //Eliminar la carpeta para no acumular imagenes innecesarias
+        Storage::deleteDirectory('products');
         Storage::deleteDirectory('categories');
         Storage::deleteDirectory('subcategories');
 
         //Crear la carpeta donde se guardaran las imagenes
-        //Como definimos en filesystem, lo hara en la carpeta public
+        //Como lo definimos en filesystem, lo hara en la carpeta public
+        Storage::makeDirectory('products');
         Storage::makeDirectory('categories');
         Storage::makeDirectory('subcategories');
 
