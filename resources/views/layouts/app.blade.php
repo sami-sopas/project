@@ -7,12 +7,18 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <!-- Icono pagina -->
+        <link rel="shortcut icon" href="{{ asset('template-app/assets/images/logo/favicon.ico') }}" type="image/x-icon">
+
+        <!-- Custom css -->
+        <link rel="stylesheet" href="{{ asset('template-app/assets/css/style-prefix.css') }}">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 
         <!-- Styles -->
         <!-- Iconos font awesome -->
@@ -24,7 +30,7 @@
 
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             <!-- LLama a un componente de livewire -->
-            @livewire('nav-bar')
+            {{-- @livewire('nav-bar') --}}
 
             {{-- 
             <!-- Page Heading -->
@@ -48,5 +54,12 @@
         @stack('modals')
 
         @livewireScripts
+
+        <!-- Custom JS -->
+        <script src="{{ asset('template-app/assets/js/script.js') }}"></script>
+
+        <!-- Ionicon link -->
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     </body>
 </html>

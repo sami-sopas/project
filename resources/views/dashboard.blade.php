@@ -1,5 +1,5 @@
 <x-app-layout> <!-- Todo lo que este dentro de x-app, corresponde a un slot -->
-    <x-slot name="header"> <!-- Slot por nombre -->
+    {{-- <x-slot name="header"> <!-- Slot por nombre -->
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
         </h2>
@@ -11,5 +11,6 @@
                 <x-welcome />
             </div>
         </div>
-    </div>
+    </div> --}}
+    <h1>hola</h1>
 </x-app-layout>
