@@ -461,7 +461,12 @@
 
           <div class="product-main">
 
-            <h2 class="title">New Products</h2>
+            <!-- Select para lo mas nuevo, mas vendido etc -->
+            <nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+              <div class="max-w-screen-xl mx-auto px-4 py-2.5">
+                @livewire('product-list')
+              </div>
+            </nav>
 
             <div class="product-grid">
 
