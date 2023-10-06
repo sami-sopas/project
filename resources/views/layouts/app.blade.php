@@ -31,7 +31,7 @@
         <div class="min-h-screen">
             <!-- LLama a un componente de livewire -->
             {{-- @livewire('nav-bar') --}}
-            @livewire('header')
+            @livewire('menu')
 
             {{-- 
             <!-- Page Heading -->
@@ -50,6 +50,9 @@
                 <!-- En este slot se renderiza el dashboard -->
                 {{ $slot }}
             </main>
+
+            <!-- Footer -->
+            <x-footer/>
         </div>
 
         @stack('modals')
