@@ -6,9 +6,9 @@ use App\Models\Product;
 use Livewire\Component;
 
 class ProductList extends Component
-{
-    public $selectedOption = 'new';
-    public $products = [];
+{    
+    public $selectedOption = 'new'; //Opcion por default
+    public $products = []; 
 
     public function mount()
     {
@@ -16,6 +16,7 @@ class ProductList extends Component
         $this->updateProducts();
     }
 
+    //Se obtienen diferentes prodictos dependiendo de la opcion seleccionada
     public function updateProducts()
     {
         if ($this->selectedOption === 'new') {
