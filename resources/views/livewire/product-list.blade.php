@@ -16,8 +16,9 @@
         @foreach ($products as $product)
             <div class="showcase">
                 <div class="showcase-banner">
-                    <img src="{{ asset('template-app/assets/images/products/1.jpg')}}" alt="{{ $product->name }}" width="300" class="product-img default">
-                    <img src="{{ asset('template-app/assets/images/products/jacket-4.jpg')}}" alt="{{ $product->name }}" width="300" class="product-img hover">
+                    <!-- METERLE IMAGENES MEDIO ALTAS PA Q SE VEA BIEN LOL -->
+                    <img src="{{ Storage::url($product->images->first()->url) }}" alt="{{ $product->name }}" width="300" class="product-img default">
+                    <img src="{{ Storage::url($product->images->skip(1)->first()->url) }}" alt="{{ $product->name }}" width="300" class="product-img hover">
                     <p class="showcase-badge">15%</p>
                     <div class="showcase-actions">
                         <button class="btn-action">
@@ -35,7 +36,7 @@
                     </div>
                 </div>
                 <div class="showcase-content">
-                    <a href="#" class="showcase-category">{{ $product->subcategory->name }}</a>
+                    <a href="#" class="showcase-category py-3">{{ $product->subcategory->name }}</a>
                     <a href="#">
                         <h3 class="showcase-title">{{ $product->name }}</h3>
                     </a>

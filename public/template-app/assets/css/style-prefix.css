@@ -2247,7 +2247,7 @@ footer {
   .product-grid {
     -ms-grid-columns: 1fr 30px 1fr;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    gap: 70px;
   }
 
 
