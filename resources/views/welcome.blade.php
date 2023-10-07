@@ -44,7 +44,7 @@
     - MAIN
   -->
 
-  <main>
+  <div>
 
     <!--
       - BANNER
@@ -474,7 +474,7 @@
     </div>
 
 
-  </main>
+  </div>
 
 
 

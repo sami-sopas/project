@@ -1,4 +1,4 @@
-<div class="banner relative z-0">
+<div class="banner relative z-0 py-2">
 
     <div class="container">
 

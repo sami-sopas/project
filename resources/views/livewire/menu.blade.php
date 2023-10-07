@@ -55,7 +55,7 @@
                         @foreach ($categories as $category)
                             <ul class="dropdown-panel-list">
                                 <li class="menu-title">
-                                    <a href="#">{{ $category->name }}</a>
+                                    <a href="{{ route('categories.show',$category) }}">{{ $category->name }}</a>
                                 </li>
 
                                 @foreach ($category->subcategories as $subcategory)
@@ -79,7 +79,7 @@
                 <!-- MENU POR CADA CATEGORIA Y SUS SUBCATEGORIAS -->
                 @foreach ($categories as $category)
                     <li class="menu-category">
-                        <a href="#" class="menu-title">{{ $category->name }}</a>
+                        <a href="{{ route('categories.show',$category) }}" class="menu-title">{{ $category->name }}</a>
                         <ul class="dropdown-list">
                             @foreach ($category->subcategories as $subcategory)
                                 <li class="dropdown-item">

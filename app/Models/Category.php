@@ -19,6 +19,12 @@ class Category extends Model
         'icon'
     ];
 
+    //Le decimos al modelo que use el slug en vez del id para el link (url amigables)
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     //Relacion 1 a N entre Categoria y Subcategorias
     public function subcategories() : HasMany
     {
