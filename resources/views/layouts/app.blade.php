@@ -8,7 +8,7 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Icono pagina -->
-        <link rel="shortcut icon" href="{{ asset('template-app/assets/images/logo/favicon.ico') }}" type="image/x-icon">
+        <link rel="shortcut icon" href="{{ asset('template-app/assets/images/logo/icons8-kuromi-32.png') }}" type="image/x-icon">
 
         <!-- Custom css -->
         <link rel="stylesheet" href="{{ asset('template-app/assets/css/style-prefix.css') }}">
