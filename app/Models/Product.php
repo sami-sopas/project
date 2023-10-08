@@ -43,4 +43,10 @@ class Product extends Model
     {
         return $this->morphMany(Image::class,'imageable');
     }
+
+    //Le decimos al modelo que use el slug en vez del id para el link (url amigables)
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

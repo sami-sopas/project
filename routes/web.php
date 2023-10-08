@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Category;
 
@@ -19,8 +20,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Resource controller de categorias
+//Para estos metodos solo estoy usando el show en realidad
+//Resource controller de categorias 
 Route::resource('categories', CategoryController::class);
+
+//Resource controller de productos
+Route::resource('products',ProductController::class);
+
 
 Route::middleware([
     'auth:sanctum',

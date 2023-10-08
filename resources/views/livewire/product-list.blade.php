@@ -37,7 +37,7 @@
                 </div>
                 <div class="showcase-content">
                     <a href="#" class="showcase-category py-3">{{ $product->subcategory->name }}</a>
-                    <a href="#">
+                    <a href="{{ route('products.show',$product) }}">
                         <h3 class="showcase-title">{{ $product->name }}</h3>
                     </a>
                     <div class="showcase-rating">
