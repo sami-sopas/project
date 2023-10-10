@@ -157,7 +157,7 @@
 
                             {{-- <p class="text-green-600 dark:text-green-300 font-bold">8 in stock</p> --}}
 
-                            <div class="mb-8" x-data="{ selectedColor: '' }">
+                            {{-- <div class="mb-8" x-data="{ selectedColor: '' }">
                                 <h2 class="w-16 pb-1 mb-4 text-2xl font-bold border-b border-blue-300 dark:text-gray-400 dark:border-gray-600">
                                     Colores</h2>
                                 <div class="flex flex-wrap mb-2">
@@ -186,16 +186,16 @@
                                 <p class="text-gray-500 mt-2" x-show="selectedColor">
                                     Has seleccionado el color: <span x-text="selectedColor"></span>
                                 </p>
-                            </div>
+                            </div> --}}
 
-                            {{-- Verificar si el producto actual tiene tallas --}}
+                            {{-- Productos que tienen talla --}}
                             @if ($product->subcategory->size)
                                 @livewire('add-bag-item-size',['product' => $product])
-                            {{-- Verificar si el producto tiene color --}}
+                            {{-- Productos que no tienen color --}}
                             @elseif ($product->subcategory->color)
                                 @livewire('add-bag-item-color',['product' => $product])
                             @else
-                                {{-- Aqui el producto tiene talla y color--}}
+                                {{-- Aqui el producto NO tiene talla y color--}}
                                 @livewire('add-bag-item',['product' => $product])
                             @endif
                             

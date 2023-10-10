@@ -26,7 +26,7 @@ class ProductFactory extends Factory
         /* Si la subcategoria indica que ese producto tendra colores
            entonces no guardamos la cantidad de productos en la tabla products,
            la guardamos en la tabla color_product */
-        if($subcategory->color == true){
+        if($subcategory->color){
             $quantity = null;
         }
         else{ //color es falso, entonces guardamos la cantidad en products

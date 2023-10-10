@@ -22,17 +22,21 @@ class SubcategorySeeder extends Seeder
                 'name' => 'Camisas',
                 'slug' => Str::slug('Camisas'),
                 'color' => true,
-                'size' => true,
+                'size' => false,
             ],
             [
                 'category_id' => 1,
                 'name' => 'Pantalones',
                 'slug' => Str::slug('Pantalones'),
+                'color' => true,
+                'size' => false,
             ],
             [
                 'category_id' => 1,
                 'name' => 'Chamarras',
                 'slug' => Str::slug('Chamarras'),
+                'color' => true,
+                'size' => false,
             ],
             /* Mujeres */
             [

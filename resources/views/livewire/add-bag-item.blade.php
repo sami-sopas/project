@@ -24,7 +24,8 @@
     <div class="flex items-center">
         
         <div x-data> {{-- con x-data inicializamos alpine en todo este div --}}
-            <!-- Input counter -->
+
+            <!-- Cantidad de elementos -->
             <div class="custom-number-input h-10 w-32 mb-1">
                 <div class="flex flex-row h-full w-full rounded-lg relative bg-transparent mt-1">
 
