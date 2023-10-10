@@ -22,7 +22,7 @@ class SizeSeeder extends Seeder
                         ->where('size',true);
         })->get();
 
-        $sizes = ['S','M','XS','L'];
+        $sizes = ['XS','S','M','L'];
 
         foreach($products as $product)
         {
