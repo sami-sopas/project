@@ -1,4 +1,19 @@
 <x-app-layout>
+
+    <style>
+        /* Estilo para color seleccionado */
+        .selected-button {
+            border: 1px solid #010f1b; /* Cambia el color del borde al seleccionar */
+        }
+
+        /* Estilo para boton de talla seleccionado */
+        .selected {
+            background-color: #3490dc; /* Cambia el color de fondo para los botones seleccionados */
+            color: #fff; /* Cambia el color del texto para los botones seleccionados */
+            border-color: #3490dc; /* Cambia el color del borde para los botones seleccionados */
+        }
+
+    </style>
     <section class="container">
         <div class="antialiased">
             <div class="py-6">
@@ -26,49 +41,57 @@
                 </div>
                 <!-- ./ Breadcrumbs -->
 
+                <!-- Imagenes -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
                     <div class="flex flex-col md:flex-row -mx-4">
                         <div class="md:flex-1 px-4">
                             <div x-data="{ image: 1 }" x-cloak>
                                 <div class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
-                                    <div x-show="image === 1"
-                                        class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                                        <span class="text-5xl">1</span>
-                                    </div>
-
-                                    <div x-show="image === 2"
-                                        class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                                        <span class="text-5xl">2</span>
-                                    </div>
-
-                                    <div x-show="image === 3"
-                                        class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                                        <span class="text-5xl">3</span>
-                                    </div>
-
-                                    <div x-show="image === 4"
-                                        class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                                        <span class="text-5xl">4</span>
-                                    </div>
+                                    @foreach ($product->images as $key => $image)
+                                        <div x-show="image === {{ $key + 1 }}"
+                                            class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
+                                            <img src="{{ Storage::url($image->url) }}" alt="Product Image {{ $key + 1 }}"
+                                                class="w-full h-full object-cover rounded-lg">
+                                        </div>
+                                    @endforeach
                                 </div>
-
+                        
                                 <div class="flex -mx-2 mb-4">
-                                    <template x-for="i in 4">
+                                    @foreach ($product->images as $key => $image)
                                         <div class="flex-1 px-2">
-                                            <button x-on:click="image = i"
-                                                :class="{ 'ring-2 ring-indigo-300 ring-inset': image === i }"
+                                            <button x-on:click="image = {{ $key + 1 }}"
+                                                :class="{ 'ring-2 ring-indigo-300 ring-inset': image === {{ $key + 1 }} }"
                                                 class="focus:outline-none w-full rounded-lg h-24 md:h-32 bg-gray-100 flex items-center justify-center">
-                                                <span x-text="i" class="text-2xl"></span>
+                                                <img src="{{ Storage::url($image->url) }}" alt="Product Thumbnail {{ $key + 1 }}"
+                                                    class="w-full h-full object-cover rounded-lg">
                                             </button>
                                         </div>
-                                    </template>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="px-2 pb-6 mt-6 border-t border-gray-300 dark:border-gray-400 ">
+                                <div class="flex flex-wrap items-center mt-6">
+                                    <span class="mr-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                            class="w-4 h-4 text-gray-700 dark:text-gray-400 bi bi-truck"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <h2 class="text-lg font-medium dark:text-gray-400">Recibelo el {{ now()->addDay(7)->locale('es_ES')->isoFormat('D [de] MMMM [del] YYYY') }}</h2>
                                 </div>
                             </div>
                         </div>
+                        
+                            
+                        
+                        <!-- Informacion del producto -->
                         <div class="md:flex-1 px-4">
                             <span class="text-lg font-medium text-rose-500 dark:text-rose-200">New</span>
                             <h2 class="max-w-xl mt-2 mb-6 text-2xl font-bold dark:text-gray-400 md:text-4xl">
-                                Shoes</h2>
+                                {{ $product->name }}</h2>
                             <div class="flex items-center mb-6">
                                 <ul class="flex mr-2">
                                     <li>
@@ -116,14 +139,14 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <p class="text-xs dark:text-gray-400 ">(2 customer reviews)</p>
+                                <a href="#" class="text-xs dark:text-gray-400 underline">2 reseñas</a>
                             </div>
 
                             <div class="flex items-center space-x-4 my-4">
                                 <div>
                                     <div class="rounded-lg bg-gray-100 flex py-2 px-4 mx-auto">
                                         <span class="text-indigo-400 mr-1 mt-1">$</span>
-                                        <span class="font-bold text-indigo-600 text-3xl">25</span>
+                                        <span class="font-bold text-indigo-600 text-3xl">{{ $product->price }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -132,72 +155,78 @@
 
 
 
-                            <p class="text-green-600 dark:text-green-300 ">7 in stock</p>
+                            {{-- <p class="text-green-600 dark:text-green-300 font-bold">8 in stock</p> --}}
 
-                            <div class="flex items-center mb-8">
-                                <h2 class="w-16 mr-6 text-xl font-bold dark:text-gray-400">
-                                    Colors:</h2>
-                                <div class="flex flex-wrap -mx-2 -mb-2">
+                            <div class="mb-8" x-data="{ selectedColor: '' }">
+                                <h2 class="w-16 pb-1 mb-4 text-2xl font-bold border-b border-blue-300 dark:text-gray-400 dark:border-gray-600">
+                                    Colores</h2>
+                                <div class="flex flex-wrap mb-2">
                                     <button
-                                        class="p-1 mb-2 mr-2 border border-transparent hover:border-yellow-400 dark:border-gray-800 dark:hover:border-gray-400 ">
-                                        <div class="w-6 h-6 bg-cyan-300"></div>
+                                        class="p-1 mb-2 mr-3 rounded-full transition duration-300"
+                                        :class="{ 'selected-button': selectedColor === 'stone' }"
+                                        x-on:click="selectedColor = 'stone'"
+                                    >
+                                        <div class="w-6 h-6 rounded-full bg-stone-400"></div>
                                     </button>
                                     <button
-                                        class="p-1 mb-2 mr-2 border border-transparent hover:border-yellow-400 dark:border-gray-800 dark:hover:border-gray-400">
-                                        <div class="w-6 h-6 bg-green-300 "></div>
+                                        class="p-1 mb-2 mr-3 rounded-full transition duration-300"
+                                        :class="{ 'selected-button': selectedColor === 'gray' }"
+                                        x-on:click="selectedColor = 'gray'"
+                                    >
+                                        <div class="w-6 h-6 bg-gray-700 rounded-full"></div>
                                     </button>
                                     <button
-                                        class="p-1 mb-2 border border-transparent hover:border-yellow-400 dark:border-gray-800 dark:hover:border-gray-400">
-                                        <div class="w-6 h-6 bg-red-200 "></div>
+                                        class="p-1 mb-2 rounded-full transition duration-300"
+                                        :class="{ 'selected-button': selectedColor === 'blue' }"
+                                        x-on:click="selectedColor = 'blue'"
+                                    >
+                                        <div class="w-6 h-6 bg-blue-200 rounded-full"></div>
                                     </button>
                                 </div>
+                                <p class="text-gray-500 mt-2" x-show="selectedColor">
+                                    Has seleccionado el color: <span x-text="selectedColor"></span>
+                                </p>
                             </div>
-                            <div class="flex items-center mb-8">
-                                <h2 class="w-16 text-xl font-bold dark:text-gray-400">
-                                    Size:</h2>
-                                <div class="flex flex-wrap -mx-2 -mb-2">
-                                    <button
-                                        class="py-1 mb-2 mr-1 border w-11 hover:border-yellow-400 dark:border-gray-400 hover:text-yellow-600 dark:hover:border-gray-300 dark:text-gray-400">XL
-                                    </button>
-                                    <button
-                                        class="py-1 mb-2 mr-1 border w-11 hover:border-yellow-400 hover:text-yellow-600 dark:border-gray-400 dark:hover:border-gray-300 dark:text-gray-400">S
-                                    </button>
-                                    <button
-                                        class="py-1 mb-2 mr-1 border w-11 hover:border-yellow-400 hover:text-yellow-600 dark:border-gray-400 dark:hover:border-gray-300 dark:text-gray-400">M
-                                    </button>
-                                    <button
-                                        class="py-1 mb-2 mr-1 border w-11 hover:border-yellow-400 hover:text-yellow-600 dark:border-gray-400 dark:hover:border-gray-300 dark:text-gray-400">XS
-                                    </button>
+
+                            {{-- Verificar si el producto actual tiene tallas --}}
+                            @if ($product->subcategory->size)
+                                @livewire('add-bag-item-size',['product' => $product])
+                            {{-- Verificar si el producto tiene color --}}
+                            @elseif ($product->subcategory->color)
+                                @livewire('add-bag-item-color',['product' => $product])
+                            @else
+                                {{-- Aqui el producto tiene talla y color--}}
+                                @livewire('add-bag-item',['product' => $product])
+                            @endif
+                            
+                            <div class="mb-8">
+                                <h2 class="w-16 pb-1 mb-4 text-xl font-semibold border-b border-blue-300 dark:border-gray-600 dark:text-gray-400">
+                                    Talla
+                                </h2>
+                                <div x-data="{ selectedOption: '' }">
+                                    <div class="flex flex-wrap -mb-2">
+                                        <button
+                                            @click="selectedOption = '8GB'"
+                                            :class="{ 'bg-blue-400 text-white': selectedOption === '8GB', 'border': selectedOption !== '8GB' }"
+                                            class="px-4 py-2 mb-2 mr-4 font-semibold border rounded-md hover:bg-blue-400 hover:text-white dark:border-gray-400 dark:hover:border-gray-300 dark:text-gray-400">
+                                            8 GB
+                                        </button>
+                                        <button
+                                            @click="selectedOption = '16GB'"
+                                            :class="{ 'bg-blue-400 text-white': selectedOption === '16GB', 'border': selectedOption !== '16GB' }"
+                                            class="px-4 py-2 mb-2 mr-4 font-semibold border rounded-md hover:bg-blue-400 hover:text-white dark:border-gray-400 dark:hover:border-gray-300 dark:text-gray-400">
+                                            16 GB
+                                        </button>
+                                        <button
+                                            @click="selectedOption = '1TB'"
+                                            :class="{ 'bg-blue-400 text-white': selectedOption === '1TB', 'border': selectedOption !== '1TB' }"
+                                            class="px-4 py-2 mb-2 font-semibold border rounded-md hover:bg-blue-400 hover:text-white dark:border-gray-400 dark:hover:border-gray-300 dark:text-gray-400">
+                                            1 TB
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="flex py-4 space-x-4">
-                                <div class="relative">
-                                    <div
-                                        class="text-center left-0 pt-2 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">
-                                        Qty</div>
-                                    <select
-                                        class="cursor-pointer appearance-none rounded-xl border border-gray-200 pl-4 pr-8 h-14 flex items-end pb-1">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-
-                                    <svg class="w-5 h-5 text-gray-400 absolute right-0 bottom-0 mb-2 mr-2"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                    </svg>
-                                </div>
-
-                                <button type="button"
-                                    class="h-14 px-6 py-2 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white">
-                                    Add to Cart
-                                </button>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
