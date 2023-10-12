@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProductController;
-use Illuminate\Support\Facades\Route;
 use App\Models\Category;
+use Illuminate\Support\Facades\Route;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +37,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+Route::get('prueba',function(){
+    Cart::destroy();
 });

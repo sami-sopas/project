@@ -9,6 +9,10 @@
         case 'white':   
             $color = '#ffffff';
             break;
+
+        case 'black':   
+            $color = '	#000000';
+            break;
         
         default:
             $color = '#6b6b6b';

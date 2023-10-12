@@ -26,8 +26,9 @@
                 </button>
 
                 <button class="action-btn">
-                    <ion-icon name="bag-handle-outline"></ion-icon>
-                    <span class="count">0</span>
+                    @livewire('dropdown-bag')
+                    {{-- <ion-icon name="bag-handle-outline"></ion-icon>
+                    <span class="count">0</span> --}}
                 </button>
 
             </div>
