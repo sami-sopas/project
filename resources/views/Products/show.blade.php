@@ -198,7 +198,8 @@
                                 {{-- Aqui el producto NO tiene talla y color--}}
                                 @livewire('add-bag-item',['product' => $product])
                             @endif
-                            
+{{--                             
+                            TALLA CON BOTONES
                             <div class="mb-8">
                                 <h2 class="w-16 pb-1 mb-4 text-xl font-semibold border-b border-blue-300 dark:border-gray-600 dark:text-gray-400">
                                     Talla
@@ -225,7 +226,7 @@
                                         </button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             
                         </div>
                     </div>

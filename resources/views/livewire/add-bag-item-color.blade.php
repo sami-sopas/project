@@ -21,6 +21,7 @@
                 Stock: {{ $stock }}
         </p>
     </div>
+    
     <!-- Cantidad y boton de compra -->
     <div class="flex items-center">
         
