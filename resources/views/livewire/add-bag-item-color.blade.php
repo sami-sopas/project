@@ -65,8 +65,12 @@
     
     <!-- Botón agregar a carrito -->
     <div class="flex-1 ml-4">
-        <button type="button"
-            class="h-10 px-6 py-2 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white">
+        <button 
+        wire:click="addItem"
+        {{-- wire:loading.attr="disabled" deshabilitar boton mientras se ejecuta el proceso addItem
+        wire:target="addItem" --}}
+        type="button"
+        class="h-10 px-6 py-2 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white">
             Add to Cart
         </button>
     </div>

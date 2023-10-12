@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class AddBagItemColor extends Component
 {
@@ -19,6 +21,12 @@ class AddBagItemColor extends Component
     //Stock (lo dejamos en 0 hasta que seleccione un color)
     public $stock;
 
+    //Guardar la primera img del producto
+    public $url;
+
+    //Guardar color seleccionado
+    public $actualColor;
+
     //Constructor
     public function mount()
     {
@@ -27,6 +35,12 @@ class AddBagItemColor extends Component
 
         //Como el primero es el seleccionado, tambien le rescatamos el stock
         $this->stock = $this->colors->first()->pivot->quantity;
+
+        //Guardamos el color actual del primero 
+        $this->actualColor = $this->colors->first();
+
+        //Guardar la primera img para enviarla al carrito
+        $this->url = Storage::url($this->product->images->first()->url);
 
     }
 
@@ -37,6 +51,8 @@ class AddBagItemColor extends Component
 
         //Encontrar la cantidad, de acuerdo al color y tabla pivote
         $this->stock = $color->pivot->quantity;
+
+        $this->actualColor = $color;
     }
 
     public function decrement()
@@ -47,6 +63,20 @@ class AddBagItemColor extends Component
     public function increment()
     {
         $this->qty = $this->qty + 1;
+    }
+
+    public function addItem()
+    {
+        Cart::add([
+        'id' => $this->product->id,
+        'name' => $this->product->name,
+        'qty' => $this->qty,
+        'price' => $this->product->price,
+        'options' => ['image' => $this->url, 'color' => $this->actualColor]
+        ]);
+
+        //LLamar a evento para el componente del carrito se renderize y no tener que actualizar la pagina
+        $this->dispatch('render');
     }
 
     public function render()

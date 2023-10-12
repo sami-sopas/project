@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use App\Models\Size;
 use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class AddBagItemSize extends Component
 {
@@ -26,6 +28,13 @@ class AddBagItemSize extends Component
     //Stock (lo dejamos en 0 hasta que seleccione un color)
     public $stock;
 
+    //Guardar el path de la img
+    public $url;
+
+    //Talla y color actual
+    public $actualSize;
+    public $actualColor;
+
     public function mount()
     {
         $this->sizes = $this->product->sizes;
@@ -35,7 +44,14 @@ class AddBagItemSize extends Component
             $this->size_id = $size->id;
             $this->colors = $size->colors;
             $this->stock = $this->colors->first()->pivot->quantity;
+
+            $this->actualColor = $size->colors->first();
+            $this->actualSize = $size;
+
         }
+
+        //Guardar la primera img para enviarla al carrito
+        $this->url = Storage::url($this->product->images->first()->url);
 
     }
 
@@ -46,6 +62,9 @@ class AddBagItemSize extends Component
 
         //Encontrar la cantidad, de acuerdo al color y tabla pivote
         $this->stock = $size->colors->find($colorId)->pivot->quantity;
+        
+        //Color actual de la talla actual
+        $this->actualColor = $size->colors->find($colorId);
     }
 
     public function decrement()
@@ -67,6 +86,26 @@ class AddBagItemSize extends Component
 
         //Recuperar los colores correspondientes a esa talla
         $this->colors = $size->colors;
+
+        //Tamaño seleccionado, se envia al cart
+        $this->actualSize = $size->name;
+    }
+
+    public function addItem()
+    {
+        Cart::add([
+        'id' => $this->product->id,
+        'name' => $this->product->name,
+        'qty' => $this->qty,
+        'price' => $this->product->price,
+        'options' => [
+            'image' => $this->url,
+             'color' => $this->actualColor,
+             'size' => $this->actualSize]
+        ]);
+
+        //LLamar a evento para el componente del carrito se renderize y no tener que actualizar la pagina
+        $this->dispatch('render');
     }
 
 

@@ -3,7 +3,7 @@
         <x-slot name="trigger">
             <span class="cursor-pointer mt-3">
                 <x-shopping-bag color="black"/>
-                {{-- ESTE ICONO DESAPARECE XD MEJOR USAMOS SHOPPING-BAG
+                {{-- ESTE ICONO DESAPARECE XD MEJOR USAMOS X-SHOPPING-BAG
                     <ion-icon name="bag-handle-outline"></ion-icon> --}}
 
                 <!-- Productos acuales en carrito circulo rojo -->
@@ -29,6 +29,22 @@
                                         <div class="space-y-1 text-left">
                                             <h3 class="text-lg font-semibold">{{ $item->name }}</h3>
                                             <p class="text-sm dark:text-gray-400">Cantidad: {{ $item->qty }}</p>
+
+                                            {{-- Validar que el producto agregado tiene color e imprimir sus datos--}}
+                                            @if($item->options->color)
+                                            <div class="flex items-center">
+                                                <p class="text-sm dark:text-gray-400 mr-2">Color: {{ $item->options->color->name }}</p>
+                                                <div style="background-color: {{ $item->options->color->hex_code }}; width: 18px; height: 18px; border-radius: 50%; border: 1px solid gray;"></div>
+                                            </div>
+                                            @endif
+
+                                            {{-- Validar que el producto agregado tenga talla e imprimirla --}}
+                                            @if($item->options->size)
+                                            <div class="flex items-center">
+                                                <p class="text-sm dark:text-gray-400 mr-2">Talla: {{ $item->options->size->name }}</p>
+                                                
+                                            </div>
+                                            @endif
                                             <p class="text-sm dark:text-gray-400">$ {{ $item->price }}</p>
                                         </div>
                                     </div>
@@ -50,8 +66,8 @@
                 {{-- Hay items en el carrito? Mostrar total a pagar --}}
                 @if (Cart::count())
                     <div class="text-left my-3 text-lg">
-                        <p>Total:
-                            <span class="font-semibold">{{Cart::subtotal()}} $</span>
+                        <p class="font-semibold">Total:
+                            <span class="font-normal">{{Cart::subtotal()}} $</span>
                         </p>
                     </div>
                     <div class="w-full">
