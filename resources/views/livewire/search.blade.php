@@ -1,15 +1,21 @@
 <div class="flex-1 relative" x-data>
-    <!-- Barra busqueda -->
-    <input wire:model.live="search"
-    type="search" 
-    name="search"
-    class="search-field" 
-    placeholder="Enter your product name...">
-    <!-- Componente de lupa -->
-    <button href="#" class="absolute top-0 right-0 w-10 h-full flex-items-center justify-center">
-        <x-search size="25" color="gray"/>
-    </button>
 
+    {{-- Enviamos a la ruta search, lo que tengamos en el input --}}
+    <form action="{{ route('search')}}" autocomplete="off">
+
+        <!-- Barra busqueda -->
+        <input wire:model.live="search"
+        type="search" 
+        name="name"
+        class="search-field" 
+        placeholder="Enter your product name...">
+        <!-- Componente de lupa -->
+        <button href="#" class="absolute top-0 right-0 w-10 h-full flex-items-center justify-center">
+            <x-search size="25" color="gray"/>
+        </button>
+
+    </form>
+        
     <!-- Aqui muestran los resultados de acuerdo a lo que escribio -->
     <div class="absolute w-full z-50 hidden"  :class="{ 'hidden' : !$wire.open }" @click.away="$wire.open = false">
         <div class="bg-white rounded-lg shadow mt-1">

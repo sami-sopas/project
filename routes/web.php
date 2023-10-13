@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,9 @@ use App\Http\Controllers\CategoryController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Muestra vista cuando dan enter o click al boton de buscar
+Route::get('search',SearchController::class)->name('search');
 
 //Para estos metodos solo estoy usando el show en realidad
 //Resource controller de categorias 
