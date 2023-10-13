@@ -79,11 +79,12 @@ class AddBagItemColor extends Component
         'options' => [
             'image' => $this->url,
             'color' => $this->actualColor,
-            'size_id' => $this->sizeId
+            'size_id' => $this->sizeId,
+            'color_id' => $this->actualColor->id,
             ]
         ]);
 
-        $this->stock = qty_available($this->product->id,$this->actualColor);
+        $this->stock = qty_available($this->product->id,$this->actualColor->id);
 
         //Resetear el input counter, a 1 para que no se quede ahi en 5 cuando se agregue al carro
         $this->reset('qty');

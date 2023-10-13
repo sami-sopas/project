@@ -23,6 +23,7 @@ function quantity($productId, $colorId = null, $sizeId = null)
 }
 
 //Esta funcion determina la cantidad de productos agregada al carrito de compras
+/*
 function qty_added($productId, $colorId = null, $sizeId = null)
 {
 
@@ -53,6 +54,24 @@ function qty_added($productId, $colorId = null, $sizeId = null)
 
         return 0;
 
+    }
+
+}*/
+
+//Productos agregador al carrito
+function qty_added($productId, $colorId = null, $sizeId = null){
+
+    $cart = Cart::content();
+
+    $item = $cart->where('id', $productId)
+                ->where('options.color_id', $colorId)
+                ->where('options.size_id', $sizeId)
+                ->first();
+
+    if($item){
+        return $item->qty;
+    }else{
+        return 0;
     }
 
 }

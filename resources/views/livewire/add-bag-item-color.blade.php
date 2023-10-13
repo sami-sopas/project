@@ -18,7 +18,12 @@
             @endforeach
         </div>
         <p class="text-gray-500 mt-2" x-show="selectedColor">
-                Stock: {{ $stock }}
+                Stock:
+                @if ($stock)
+                    {{$stock}}
+                @else {{-- Imprime el total entre los items de stock --}}
+                    {{ $product->stock }}
+                @endif
         </p>
     </div>
     

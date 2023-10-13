@@ -41,7 +41,7 @@
                                             {{-- Validar que el producto agregado tenga talla e imprimirla --}}
                                             @if($item->options->size)
                                             <div class="flex items-center">
-                                                <p class="text-sm dark:text-gray-400 mr-2">Talla: {{ $item->options->size->name }}</p>
+                                                <p class="text-sm dark:text-gray-400 mr-2">Talla: {{ $item->options->size }}</p>
                                                 
                                             </div>
                                             @endif

@@ -48,7 +48,7 @@ class AddBagItemSize extends Component
             $this->actualColor = $size->colors->first();
             $this->actualSize = $size;
             
-            $this->stock = qty_available($this->product->id,$this->actualColor,$this->actualSize);
+            $this->stock = qty_available($this->product->id,$this->actualColor->id,$this->actualSize->id);
         }
 
         //Guardar la primera img para enviarla al carrito
@@ -65,7 +65,7 @@ class AddBagItemSize extends Component
         $this->actualColor = $size->colors->find($colorId);
 
         //Encontrar la cantidad, de acuerdo al color y tabla pivote
-        $this->stock = qty_available($this->product->id,$size->id,$this->actualColor);
+        $this->stock = qty_available($this->product->id,$this->actualColor->id,$size->id);
         
     }
 
@@ -90,7 +90,10 @@ class AddBagItemSize extends Component
         $this->colors = $size->colors;
 
         //Tamaño seleccionado, se envia al cart
-        $this->actualSize = $size->name;
+        $this->actualSize = $size;
+
+        $this->stock = qty_available($this->product->id,$this->actualColor->id,$this->actualSize->id);
+
     }
 
     public function addItem()
@@ -103,13 +106,16 @@ class AddBagItemSize extends Component
         'options' => [
             'image' => $this->url,
              'color' => $this->actualColor,
-             'size' => $this->actualSize]
+             'size' => $this->actualSize->name,
+             'color_id' => $this->actualColor->id,
+             'size_id' => $this->actualSize->id,
+             ]
         ]);
 
-        $this->stock = qty_available($this->product->id,$this->actualColor,$this->actualSize);
+        $this->stock = qty_available($this->product->id,$this->actualColor->id,$this->actualSize->id);
 
         //Resetear el input counter, a 1 para que no se quede ahi en 5 cuando se agregue al carro
-        $this->reset('qty');
+        $this->reset(['qty']);
 
         //LLamar a evento para el componente del carrito se renderize y no tener que actualizar la pagina
         $this->dispatch('render');

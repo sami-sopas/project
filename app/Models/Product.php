@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +20,28 @@ class Product extends Model
         'created_at',
         'updated_at',
     ];
+
+    //Accesores
+    public function getStockAttribute() //Con esto podre hacer $product->stock
+    {
+        //Determinar si el producto necesita talla
+        if($this->subcategory->size){
+            //Hacer consulta a la relacion con size
+          return ColorSize::whereHas('size.product',function(Builder $query){
+                    $query->where('id',$this->id);
+                 })->sum('quantity');
+        } //Determinar si el producto necesita color
+        elseif($this->subcategory->color){
+            return ColorProduct::whereHas('product',function(Builder $query){
+                $query->where('id',$this->id);
+            })->sum('quantity');
+            
+        }
+        else{
+            //Cuando no necesita talla y color
+            return $this->quantity;
+        }
+    }
 
     //Relacion 1 a N inversa entre Product y Subcategory
     public function subcategory(): BelongsTo
