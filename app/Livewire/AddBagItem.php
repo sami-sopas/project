@@ -19,10 +19,14 @@ class AddBagItem extends Component
     //Variable del producto, se recibe a traves de la vista de show
     public $product;
 
+    //Para la funcion del qty_add
+    public $colorId = null;
+    public $sizeId = null;
+
     public function mount()
     {
-        //Recuperamos la cantidad de stock del producto
-        $this->stock = $this->product->quantity;
+        //Recuperamos la cantidad disponible del producto usando el helper
+        $this->stock = qty_available($this->product->id);
 
         $this->url = Storage::url($this->product->images->first()->url);
     }
@@ -44,8 +48,16 @@ class AddBagItem extends Component
         'name' => $this->product->name,
         'qty' => $this->qty,
         'price' => $this->product->price,
-        'options' => ['image' => $this->url]
+        'options' => [
+            'image' => $this->url,
+            'color_id' => $this->colorId,
+            'size_id' => $this->sizeId]
         ]);
+
+        $this->stock = qty_available($this->product->id);
+
+        //Resetear el input counter, a 1 para que no se quede ahi en 5 cuando se agregue al carro
+        $this->reset('qty');
 
         //LLamar a evento para el componente del carrito se renderize y no tener que actualizar la pagina
         $this->dispatch('render');

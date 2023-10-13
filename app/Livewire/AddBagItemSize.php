@@ -43,11 +43,12 @@ class AddBagItemSize extends Component
             $size = $this->sizes->first(); // Obtén la primera talla disponible (puedes ajustar esto según tus necesidades)
             $this->size_id = $size->id;
             $this->colors = $size->colors;
-            $this->stock = $this->colors->first()->pivot->quantity;
-
+            //$this->stock = $this->colors->first()->pivot->quantity;
+            
             $this->actualColor = $size->colors->first();
             $this->actualSize = $size;
-
+            
+            $this->stock = qty_available($this->product->id,$this->actualColor,$this->actualSize);
         }
 
         //Guardar la primera img para enviarla al carrito
@@ -60,11 +61,12 @@ class AddBagItemSize extends Component
         //Talla seleccionado
         $size = Size::find($this->size_id);
 
-        //Encontrar la cantidad, de acuerdo al color y tabla pivote
-        $this->stock = $size->colors->find($colorId)->pivot->quantity;
-        
         //Color actual de la talla actual
         $this->actualColor = $size->colors->find($colorId);
+
+        //Encontrar la cantidad, de acuerdo al color y tabla pivote
+        $this->stock = qty_available($this->product->id,$size->id,$this->actualColor);
+        
     }
 
     public function decrement()
@@ -103,6 +105,11 @@ class AddBagItemSize extends Component
              'color' => $this->actualColor,
              'size' => $this->actualSize]
         ]);
+
+        $this->stock = qty_available($this->product->id,$this->actualColor,$this->actualSize);
+
+        //Resetear el input counter, a 1 para que no se quede ahi en 5 cuando se agregue al carro
+        $this->reset('qty');
 
         //LLamar a evento para el componente del carrito se renderize y no tener que actualizar la pagina
         $this->dispatch('render');

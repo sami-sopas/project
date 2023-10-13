@@ -67,6 +67,8 @@
     <div class="flex-1 ml-4">
         <button 
         wire:click="addItem"
+         {{-- Deshabilitar boton cuando la cantidad sea mayor o stock disponible --}}
+         x-bind:disabled="$wire.qty > $wire.stock" 
         {{-- wire:loading.attr="disabled" deshabilitar boton mientras se ejecuta el proceso addItem
         wire:target="addItem" --}}
         type="button"
