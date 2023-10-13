@@ -2,7 +2,7 @@
     <x-dropdown width="96"> <!-- Cambiar ancho del div al abrir la bolsa -->
         <x-slot name="trigger">
             <span class="cursor-pointer mt-3">
-                <x-shopping-bag color="black"/>
+                <x-shopping-bag-icon color="black"/>
                 {{-- ESTE ICONO DESAPARECE XD MEJOR USAMOS X-SHOPPING-BAG
                     <ion-icon name="bag-handle-outline"></ion-icon> --}}
 

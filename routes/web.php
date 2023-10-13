@@ -6,6 +6,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SearchController;
+use App\Livewire\ShoppingBag;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,9 @@ Route::resource('categories', CategoryController::class);
 
 //Resource controller de productos
 Route::resource('products',ProductController::class);
+
+//Ruta para la bolsa de compras, controlada por un componente de livewire
+Route::get('shopping-bag',ShoppingBag::class);
 
 
 Route::middleware([
