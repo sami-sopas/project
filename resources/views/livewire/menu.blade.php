@@ -10,15 +10,16 @@
 
             <!-- Barra de busqueda -->
             <div class="header-search-container">
+                 @livewire('search')
 
-                <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
+                {{-- <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
 
                 <button class="search-btn">
                     <ion-icon name="search-outline"></ion-icon>
-                </button>
+                </button>  --}}
             </div>
 
-            <!-- Opciones a lado de la barra de busqueda -->
+            <!-- Botones a lado de la barra de busqueda -->
             <div class="header-user-actions">
 
                 <button class="action-btn">
