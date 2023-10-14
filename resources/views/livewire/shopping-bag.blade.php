@@ -12,6 +12,7 @@
 <section class="container py-8">
     <div class="bg-white rounded-lg border border-gray-200 shadow-lg p-6">
         <div class="min-h-screen">
+            @if (Cart::count())
             <h1 class="mb-10 text-center text-2xl font-bold">Mi Bolsa</h1>
             <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
                 <div class="rounded-lg md:w-2/3">
@@ -45,9 +46,6 @@
 
                                     <!-- Input Counter -->
                                     <div class="flex items-center border-gray-100">
-                                        {{-- <span class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"> - </span>
-                                        <input class="h-8 w-8 border bg-white text-center text-xs outline-none" type="number" value="{{ $item->qty }}" min="1" />
-                                        <span class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"> + </span> --}}
                                         {{--$item->rowID--}}
                                         {{-- Le pasamos al componente del counter, el Id del carrito perteneciente a cada item 
                                             tambien determinamos si sera para un item con color o talla --}}
@@ -62,7 +60,7 @@
                                         @endif
                                     </div>
                                     <div class="flex items-center space-x-4">
-                                        <p class="text-sm">$ {{ $item->price }}</p>
+                                        <p class="text-sm">$ {{ $item->price * $item->qty }}</p>
                                         <a href="#" class="hover:text-red-500">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
@@ -71,6 +69,13 @@
                             </div>
                         </div>
                     @endforeach
+
+                    <!-- Eliminar todos los items (vista computadora) -->
+                    <a class="cursor-pointer py-3 px-4 hidden md:inline-block justify-center items-center gap-2 rounded-md bg-red-100 border border-transparent font-semibold text-red-500 hover:text-white hover:bg-red-100 focus:outline-none focus:ring-2 ring-offset-white focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                       wire:click="destroy">
+                        <i class="fa-solid fa-trash mx-2"></i>
+                        Eliminar bolsa
+                    </a>
                 </div>
                 <!-- Sub total -->
                 <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
@@ -91,8 +96,22 @@
                         </div>
                     </div>
                     <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
+
+                    <!-- Eliminar todos los items (vista celular) -->
+                    <a class="py-3 w-full mt-5 px-4 lg:hidden inline-flex justify-center items-center gap-2 rounded-md bg-red-100 border border-transparent font-semibold text-red-500 hover:text-white hover:bg-red-100 focus:outline-none focus:ring-2 ring-offset-white focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                       wire:click="destroy">
+                        Eliminar bolsa
+                    </a>
+
                 </div>
             </div>
+            @else
+            <div>
+                No tienes productos agregados a tu carrito
+
+                Aqui un boton pa regresar al inicio DOBLE R
+            </div>
+            @endif
         </div>
     </div>
 </section>
