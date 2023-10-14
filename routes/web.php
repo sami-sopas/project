@@ -34,7 +34,7 @@ Route::resource('categories', CategoryController::class);
 Route::resource('products',ProductController::class);
 
 //Ruta para la bolsa de compras, controlada por un componente de livewire
-Route::get('shopping-bag',ShoppingBag::class);
+Route::get('shopping-bag',ShoppingBag::class)->name('shopping-bag');
 
 
 Route::middleware([

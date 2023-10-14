@@ -71,8 +71,8 @@
                         </p>
                     </div>
                     <div class="w-full">
-                        <a
-                        class="text-lg px-6 py-2 border rounded-md bg-violet-400 text-gray-900 border-violet-400">
+                        <a href="{{ route('shopping-bag')}}"
+                        class="text-lg px-6 py-2 border rounded-md bg-violet-500 text-gray-900 border-violet-400">
                             <span class="text-white font-bold">Ir a pagar</span>
                         </a>
                     </div>
