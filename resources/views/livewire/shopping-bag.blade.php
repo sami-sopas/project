@@ -17,7 +17,10 @@
             <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
                 <div class="rounded-lg md:w-2/3">
                     @foreach (Cart::content() as $item)
-                        <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+                        <div 
+                        {{-- Esta wire:key es porque no funcionaba al eliminar de arriba a abajo (problemas de livewire con foreachs) --}}
+                        wire:key="{{ $item->rowId }}"
+                        class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
                             <img src="{{ $item->options->image }}" alt="product-image" class="w-full rounded-lg sm:w-40" />
                             <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                                 <div class="mt-5 sm:mt-0">
@@ -61,7 +64,14 @@
                                     </div>
                                     <div class="flex items-center space-x-4">
                                         <p class="text-sm">$ {{ $item->price * $item->qty }}</p>
-                                        <a href="#" class="hover:text-red-500">
+                                        
+                                        <!-- Eliminar item individual -->
+                                        <a
+                                         class="hover:text-red-500 cursor-pointer"
+                                         wire:click="delete('{{$item->rowId}}')"
+                                         {{-- Mientras se ejecuta el metodo, mantenemos en color rojo el icono--}}
+                                         wire:loading.class="text-red-500 opacity-20"
+                                         wire:target="delete('{{$item->rowId}}')">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
                                     </div>
@@ -77,7 +87,8 @@
                         Eliminar bolsa
                     </a>
                 </div>
-                <!-- Sub total -->
+
+                <!-- A pagar mamawebo -->
                 <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
                     <div class="mb-2 flex justify-between">
                         <p class="text-gray-700">Subtotal</p>
@@ -91,11 +102,13 @@
                     <div class="flex justify-between">
                         <p class="text-lg font-bold">Total</p>
                         <div class="">
-                            <p class="mb-1 text-lg font-bold">$134.98 USD</p>
-                            <p class="text-sm text-gray-700">including VAT</p>
+                            <p class="mb-1 text-lg font-bold">$ {{Cart::subTotal()}}</p>
+                            {{-- <p class="text-sm text-gray-700">including VAT</p> --}}
                         </div>
                     </div>
-                    <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
+                    <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+                        Continuar
+                    </button>
 
                     <!-- Eliminar todos los items (vista celular) -->
                     <a class="py-3 w-full mt-5 px-4 lg:hidden inline-flex justify-center items-center gap-2 rounded-md bg-red-100 border border-transparent font-semibold text-red-500 hover:text-white hover:bg-red-100 focus:outline-none focus:ring-2 ring-offset-white focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"

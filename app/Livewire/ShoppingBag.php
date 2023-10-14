@@ -17,6 +17,15 @@ class ShoppingBag extends Component
         $this->dispatch('render')->to(DropdownBag::class);
     }
 
+    //Eliminar item individual
+    public function delete($rowId)
+    {
+        Cart::remove($rowId);
+
+        //Renderizamos de nuevo el DropdownBag, para que se apliquen ahi los cambios tambien
+        $this->dispatch('render')->to(DropdownBag::class);
+    }
+
 
     //Esta propiedad escucha al evento que se llama desde UpdateBagItem
     #[On('render')]
