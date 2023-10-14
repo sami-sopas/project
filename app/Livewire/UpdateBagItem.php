@@ -25,7 +25,7 @@ class UpdateBagItem extends Component
         $this->qty = $item->qty;
 
         //Obtenemos el Stock actual disponible producto
-        $this->stock = qty_available($item->id);
+        $this->stock = qty_available($item->id) + $this->qty;
     }
 
     public function decrement()
