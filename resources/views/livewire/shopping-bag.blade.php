@@ -80,27 +80,11 @@
                         </div>
                     @endforeach
 
-                    <!-- Eliminar todos los items (vista computadora) -->
-                    <a class="cursor-pointer py-3 px-4 hidden md:inline-block justify-center items-center gap-2 rounded-md bg-red-100 border border-transparent font-semibold text-red-500 hover:text-white hover:bg-red-100 focus:outline-none focus:ring-2 ring-offset-white focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-                       wire:click="destroy">
-                        <i class="fa-solid fa-trash mx-2"></i>
-                        Eliminar bolsa
-                    </a>
-                </div>
-
-                <!-- A pagar mamawebo -->
-                <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
-                    <div class="mb-2 flex justify-between">
-                        <p class="text-gray-700">Subtotal</p>
-                        <p class="text-gray-700">$129.99</p>
-                    </div>
-                    <div class="flex justify-between">
-                        <p class="text-gray-700">Shipping</p>
-                        <p class="text-gray-700">$4.99</p>
-                    </div>
+                    <!-- TOTAL -->
+                <div class="mt-6 rounded-lg border bg-white p-6 shadow-md md:mt-0">
                     <hr class="my-4" />
                     <div class="flex justify-between">
-                        <p class="text-lg font-bold">Total</p>
+                        <p class="text-lg font-bold">Total a pagar mi estimulado: </p>
                         <div class="">
                             <p class="mb-1 text-lg font-bold">$ {{Cart::subTotal()}}</p>
                             {{-- <p class="text-sm text-gray-700">including VAT</p> --}}
@@ -110,13 +94,15 @@
                         Continuar
                     </button>
 
-                    <!-- Eliminar todos los items (vista celular) -->
-                    <a class="py-3 w-full mt-5 px-4 lg:hidden inline-flex justify-center items-center gap-2 rounded-md bg-red-100 border border-transparent font-semibold text-red-500 hover:text-white hover:bg-red-100 focus:outline-none focus:ring-2 ring-offset-white focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                    <!-- Eliminar todos los items-->
+                    <a class="py-3 w-full mt-5 px-4 inline-flex justify-center items-center gap-2 rounded-md bg-red-100 border border-transparent font-semibold text-red-500 hover:text-white hover:bg-red-100 focus:outline-none focus:ring-2 ring-offset-white focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
                        wire:click="destroy">
                         Eliminar bolsa
                     </a>
-
+ 
                 </div>
+
+                </div>            
             </div>
             @else
             <div>
