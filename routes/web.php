@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SearchController;
 use App\Livewire\ShoppingBag;
+use App\Livewire\CreateOrder;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,17 +37,5 @@ Route::resource('products',ProductController::class);
 //Ruta para la bolsa de compras, controlada por un componente de livewire
 Route::get('shopping-bag',ShoppingBag::class)->name('shopping-bag');
 
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
-
-Route::get('prueba',function(){
-    Cart::destroy();
-});
+//Creacion de ordenes (controlado por un componente de livewire)
+Route::get('orders/create',CreateOrder::class)->middleware('auth')->name('orders.create');

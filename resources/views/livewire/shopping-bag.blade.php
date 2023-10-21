@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
-                        Continuar
+                        <a href="{{route('orders.create')}}">Continuar</a>
                     </button>
 
                     <!-- Eliminar todos los items-->

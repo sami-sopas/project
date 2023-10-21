@@ -22,10 +22,69 @@
             <!-- Botones a lado de la barra de busqueda -->
             <div class="header-user-actions">
 
-                <button class="action-btn">
-                    <ion-icon name="person-outline"></ion-icon>
-                </button>
+                @auth
+                <x-dropdown align="right" width="48">
 
+                    <!-- Icono -->
+                    <x-slot name="trigger">
+                        <ion-icon class="text-3xl cursor-pointer" name="person-outline"></ion-icon>
+                    </x-slot>
+
+                    <!-- Contenido -->
+                    <x-slot name="content">
+                        <!-- Account Management -->
+                        <div class="block px-4 py-2 text-xs text-gray-400">
+                            {{ __('Cuenta') }}
+                        </div>
+
+                        <x-dropdown-link href="{{ route('profile.show') }}">
+                            {{ __('Perfil') }}
+                        </x-dropdown-link>
+
+                        @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                            <x-dropdown-link href="{{ route('api-tokens.index') }}">
+                                {{ __('API Tokens') }}
+                            </x-dropdown-link>
+                        @endif
+
+                        <div class="border-t border-gray-200 dark:border-gray-600"></div>
+
+                        <!-- Authentication -->
+                        <form method="POST" action="{{ route('logout') }}" x-data>
+                            @csrf
+
+                            <x-dropdown-link class="text-red-600 font-bold" href="{{ route('logout') }}"
+                                     @click.prevent="$root.submit();">
+                                {{ __('Cerrar sesión') }}
+                            </x-dropdown-link>
+                        </form>
+                    </x-slot>
+                </x-dropdown>    
+                @endauth
+
+                @guest
+                <x-dropdown align="right" width="48">
+
+                    <!-- Icono -->
+                    <x-slot name="trigger">
+                        <ion-icon class="text-3xl cursor-pointer" name="person-outline"></ion-icon>
+                    </x-slot>
+
+                    <!-- Contenido -->
+                    <x-slot name="content">
+
+                        <x-dropdown-link href="{{ route('login') }}">
+                            {{ __('Iniciar sesión') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link href="{{ route('register') }}">
+                            {{ __('Registrarse') }}
+                        </x-dropdown-link>
+                       
+                    </x-slot>
+                </x-dropdown>
+                @endguest
+                
                 <button class="action-btn">
                     @livewire('dropdown-bag')
                     {{-- <ion-icon name="bag-handle-outline"></ion-icon>
