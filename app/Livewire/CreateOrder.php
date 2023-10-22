@@ -8,6 +8,9 @@ use Livewire\Component;
 
 class CreateOrder extends Component
 {
+    //Para sincronizar alpine con livewire (cambiara dependiendo del input seleccionado)
+    public $shipping_type = 1;
+
     //Guardar paises y estados
     public $countries;
     public $states = []; //Lo inicialicamos en un array porque dependera del pais los estados a mostrar

@@ -19,31 +19,39 @@
 
         </div>
 
-        <!-- Seccion envios -->
-        <div>   
+        <!-- Seccion envios (inicializamos alpine aqui) -->
+         {{-- Con esto vinculamos este div a la variable que declaramos
+              en CreateOrder.php, para que este vinculado alpine y livewire
+              (Si se cambia aqui, tambien se cambia en el componente de livewire )
+         --}}
+        <div x-data="{ shipping_type: @entangle('shipping_type')}">
             <p class="mt-6 mb-3 text-lg text-gray-700 font-semibold ml-1">
                 Envios
             </p>
 
             <label class="bg-white rounded-lg shadow px-6 py-4 flex items-center mb-4">
-                <input type="radio" name="shipping" class="text-gray-600">
+                <input x-model="shipping_type" type="radio" name="shipping_type" value="1" class="text-gray-600">
                 <span class="ml-2 text-gray-700">
-                    Recojo en tienda (C. Othón Blanco, Guadalajara, Jal., Mexico)
+                    Recoger en tienda (C. Othón Blanco, Guadalajara, Jal., Mexico)
                 </span>
                 <span class="font-semibold text-gray-700 ml-auto">
                     Gratis
                 </span>
             </label>
 
+            
             <div class="bg-white rounded-lg shadow">
                 <label class="bg-white rounded-lg px-6 py-4 flex items-center">
-                    <input type="radio" name="shipping" class="text-gray-600">
+                    <input x-model="shipping_type" type="radio" name="shipping_type" value="2" class="text-gray-600">
                     <span class="ml-2 text-gray-700">
                         Envio a domicilio
                     </span>
                 </label>
 
-                <div class="px-6 pb-6 grid grid-cols-2 gap-6">
+                {{-- Este div estara oculto por defecto,
+                    cuando cambie el valor de shipping_type al dar click al input radio con value 2
+                    Se le quitara esa clase--}}
+                <div class="px-6 pb-6 grid grid-cols-2 gap-6 hidden" :class="{ 'hidden': shipping_type != 2 }">
                     <!-- Paises -->
                     <div>
                         <x-label value="Pais"/>
