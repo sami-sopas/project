@@ -15,6 +15,8 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained(); //Relacionar 1 orden con un usuario
+            $table->string('contact'); //Quien recibe el paquete
+            $table->string('phone'); //Telefono de contacto
             $table->enum('status',[ //El significado esta en Order.php
             Order::PENDING,
             Order::RECEIVED,
@@ -27,10 +29,11 @@ return new class extends Migration
             $table->json('content'); //Contenido de la orden(productos) del usuario
 
             //LLaves foraneas para pais y estado
-            $table->foreignId('country_id')->constrained();
-            $table->foreignId('state_id')->constrained(); 
+            $table->foreignId('country_id')->constrained()->nullable();
+            $table->foreignId('state_id')->constrained()->nullable(); 
             
-            $table->string('address'); //Direccion del cliente
+            $table->string('address')->nullable(); //Direccion del cliente
+            $table->string('reference')->nullable(); //Referencia de la direccion
             $table->timestamps();
         });
     }

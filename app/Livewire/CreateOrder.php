@@ -19,12 +19,40 @@ class CreateOrder extends Component
     public $country_id = "";
     public $state_id = "";
 
+    //Para sincronizar esto con los inputs
+    public $contact;
+    public $phone;
     public $address;
     public $reference;
+
+    //Validacion para todos
+    public $rules = [
+        'contact' => 'required',
+        'phone' => 'required',
+        'shipping_type' => 'required'
+    ];
 
     public function mount()
     {
         $this->countries = Country::all();
+    }
+
+    //Funcion que se ejecuta al presionar el boton de Completar orden
+    public function create_order()
+    {
+
+        $rules = $this->rules;
+
+        //En caso de elegir envio a domicilio,
+        // agregaremos unas validaciones extra
+        if($this->shipping_type == 2){
+            $rules['country_id'] = 'required';
+            $rules['state_id'] = 'required';
+            $rules['address'] = 'required';
+            $rules['reference'] = 'required';
+        }
+
+        $this->validate($rules);
     }
 
     public function render()
