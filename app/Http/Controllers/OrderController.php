@@ -10,6 +10,9 @@ class OrderController extends Controller
     //Recibe la orden de la que se realizara el pago
     public function payment(Order $order)
     {
-        return view('Orders.payment',compact('order'));
+        //Quitarle el json al contenido para poder iterarlo
+        $items = json_decode($order->content);
+
+        return view('Orders.payment',compact('order','items'));
     }
 }
