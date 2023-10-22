@@ -326,7 +326,13 @@
             </p>
 
             <label class="bg-white rounded-lg shadow px-6 py-4 flex items-center mb-4">
-                <input x-model="shipping_type" type="radio" name="shipping_type" value="1" class="text-gray-600">
+                <input 
+                x-model="shipping_type" 
+                type="radio" 
+                name="shipping_type" 
+                value="1" 
+                class="text-gray-600"
+                wire:click="pickupStore">
                 <span class="ml-2 text-gray-700">
                     Recoger en tienda (C. Othón Blanco, Guadalajara, Jal., Mexico)
                 </span>
@@ -338,8 +344,13 @@
 
             <div class="bg-white rounded-lg shadow">
                 <label class="bg-white rounded-lg px-6 py-4 flex items-center">
-                    <input x-model="shipping_type" type="radio" name="shipping_type" value="2"
-                        class="text-gray-600">
+                    <input 
+                        x-model="shipping_type" 
+                        type="radio" 
+                        name="shipping_type" 
+                        value="2"
+                        class="text-gray-600"
+                        wire:click="sendHome">
                     <span class="ml-2 text-gray-700">
                         Envio a domicilio
                     </span>
@@ -353,7 +364,9 @@
                     <div>
                         <x-label value="Pais" />
                         {{-- Vinculamos con la prpiedad de createOrder --}}
-                        <select class="w-full p-2 rounded" wire:model="country_id">
+                        <select 
+                        class="w-full p-2 rounded" 
+                        wire:model.live="country_id">
                             <option value="" disabled selected>Seleccione un pais</option>
 
                             @foreach ($countries as $country)
@@ -476,14 +489,24 @@
 
                 <p class="flex justify-between items-center mt-1">
                     Envio
-                    <span class="font-semibold">Gratis</span>
+                    <span class="font-semibold">
+                        @if ($shipping_type == 1 || $shipping_cost == 0)
+                            Gratis
+                        @else
+                            {{$shipping_cost}} $                           
+                        @endif
+                    </span>
                 </p>
 
                 <hr class="mt-4 mb-3">
 
                 <p class="flex justify-between items-center mt-1 font-semibold">
                     <span class="text-lg">Total</span>
-                    {{ Cart::subtotal() }} $
+                    @if ($shipping_type == 1)
+                        {{ Cart::subtotal() }} $
+                    @else
+                    {{ Cart::subtotal() + $shipping_cost}} $
+                    @endif
                 </p>
 
                 <!-- Boton pasadisimo de lanza -->

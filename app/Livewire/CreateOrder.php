@@ -10,6 +10,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CreateOrder extends Component
 {
+
     //Para sincronizar alpine con livewire (cambiara dependiendo del input seleccionado)
     public $shipping_type = 1;
 
@@ -43,14 +44,38 @@ class CreateOrder extends Component
     //Para que al cambiar de tipo de envio, se reinicien los inputs
     public function updatedShippingType($value)
     {
-        if($value == 1){
+        if ($value == 1) {
             $this->resetValidation([
                 'country_id',
                 'state_id',
                 'address',
-                'reference'
+                'reference',
             ]);
         }
+    }
+
+    //NO jalo una madre de alpine tons lo tuve q llamar a traves de otro metodo
+    public function pickupStore()
+    {
+        $this->updatedShippingType(1);
+    }
+
+    public function sendHome()
+    {
+        $this->updatedShippingType(2);
+    }
+
+    //Cada que cambia el pais, aqui se actualizan los estados
+    public function updatedCountryId($value)
+    {
+        //Recuperar el pais seleccionado
+        $country = Country::find($value);
+
+        //Obtenemos el costo por ese pais para mostrarlo en la vista
+        $this->shipping_cost = $country->cost;
+
+        $this->states = State::where('country_id',$value)->get();
+
     }
 
     //Funcion que se ejecuta al presionar el boton de Completar orden
@@ -80,9 +105,18 @@ class CreateOrder extends Component
         $order->contact = $this->contact;
         $order->phone = $this->phone;
         $order->shipping_type = $this->shipping_type;
-        $order->shipping_cost = $this->shipping_cost;
+        $order->shipping_cost = 0;
         $order->total = $this->shipping_cost + Cart::subtotal();
         $order->content = Cart::content();
+
+        if($this->shipping_type == 2){
+            $order->shipping_cost = $this->shipping_cost;
+            $order->country_id = $this->country_id;
+            $order->state_id = $this->state_id;
+            $order->address = $this->address;
+            $order->reference = $this->reference;
+            
+        }
 
         $order->save();
 
