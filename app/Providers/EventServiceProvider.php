@@ -3,6 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Auth\Events\Registered;
+
+//Evento login
+use Illuminate\Auth\Events\Login;
+//Evento logout
+use Illuminate\Auth\Events\Logout;
+
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
@@ -14,10 +20,24 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array<class-string, array<int, class-string>>
      */
+
+     //Definicion de eventos y oyentes
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        //Evento login
+        Login::class => [
+            //Oyentes que se generan
+            "App\Listeners\MergeTheCart"
+        ],
+
+        //Evento logout
+        Logout::class => [
+            //Oyentes que se generan
+            "App\Listeners\MergeTheCartLogout"
+        ]
     ];
 
     /**

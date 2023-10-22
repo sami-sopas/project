@@ -4,7 +4,7 @@
 
         <div class="container">
 
-            <a href="#" class="header-logo">
+            <a href="/" class="header-logo">
                 <img src="./assets/images/logo/logo.svg" alt="Anon's logo" width="120" height="36">
             </a>
 
