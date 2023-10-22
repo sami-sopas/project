@@ -29,8 +29,8 @@ return new class extends Migration
             $table->json('content'); //Contenido de la orden(productos) del usuario
 
             //LLaves foraneas para pais y estado
-            $table->foreignId('country_id')->constrained()->nullable();
-            $table->foreignId('state_id')->constrained()->nullable(); 
+            $table->foreignId('country_id')->nullable()->constrained();
+            $table->foreignId('state_id')->nullable()->constrained(); 
             
             $table->string('address')->nullable(); //Direccion del cliente
             $table->string('reference')->nullable(); //Referencia de la direccion

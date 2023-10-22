@@ -488,7 +488,11 @@
 
                 <!-- Boton pasadisimo de lanza -->
                 <div class="mt-7 flex justify-center">
-                    <button wire:click="create_order" class="truck-button text-lg">
+                    <button 
+                    wire:loading.attr="disabled" {{--Boton deshabilitado mientras carga la acction--}}
+                    wire:target="create_order"
+                    wire:click="create_order" 
+                    class="truck-button text-lg">
                         <span class="default">Completar orden</span>
                         <span class="success">
                             Orden realizada

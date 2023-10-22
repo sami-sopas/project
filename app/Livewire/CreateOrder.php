@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Models\Order;
 use App\Models\State;
 use App\Models\Country;
 use Livewire\Component;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CreateOrder extends Component
 {
@@ -24,6 +26,7 @@ class CreateOrder extends Component
     public $phone;
     public $address;
     public $reference;
+    public $shipping_cost = 0;
 
     //Validacion para todos
     public $rules = [
@@ -37,9 +40,25 @@ class CreateOrder extends Component
         $this->countries = Country::all();
     }
 
+    //Para que al cambiar de tipo de envio, se reinicien los inputs
+    public function updatedShippingType($value)
+    {
+        if($value == 1){
+            $this->resetValidation([
+                'country_id',
+                'state_id',
+                'address',
+                'reference'
+            ]);
+        }
+    }
+
     //Funcion que se ejecuta al presionar el boton de Completar orden
     public function create_order()
     {
+
+        //Esperar para q acabe la animacion del boton xd
+        sleep(5);
 
         $rules = $this->rules;
 
@@ -53,6 +72,24 @@ class CreateOrder extends Component
         }
 
         $this->validate($rules);
+
+        //Creando la orden
+        $order = new Order();
+
+        $order->user_id = auth()->user()->id;
+        $order->contact = $this->contact;
+        $order->phone = $this->phone;
+        $order->shipping_type = $this->shipping_type;
+        $order->shipping_cost = $this->shipping_cost;
+        $order->total = $this->shipping_cost + Cart::subtotal();
+        $order->content = Cart::content();
+
+        $order->save();
+
+        //Una vez generada la orden, eliminamos los items del carrito
+        Cart::destroy();
+
+        return redirect()->route('orders.payment',$order);
     }
 
     public function render()
