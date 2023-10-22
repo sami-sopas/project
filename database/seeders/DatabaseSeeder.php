@@ -56,5 +56,8 @@ class DatabaseSeeder extends Seeder
 
         //LLamar a Size-Color Seeder
         $this->call(ColorSizeSeeder::class);
+
+        //Paises y estados
+        $this->call(CountrySeeder::class);
     }
 }

@@ -17,7 +17,8 @@ class CountryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->word(),
+            'cost' => $this->faker->randomElement([50,100,150]),
         ];
     }
 }

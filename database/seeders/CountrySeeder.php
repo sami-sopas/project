@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\State;
+use App\Models\Country;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CountrySeeder extends Seeder
 {
@@ -12,6 +14,10 @@ class CountrySeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Country::factory(5)->create()->each(function(Country $country){
+            State::factory(5)->create([
+                'country_id' => $country->id
+            ]);
+        });
     }
 }
