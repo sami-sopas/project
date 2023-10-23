@@ -491,7 +491,7 @@
                     Envio
                     <span class="font-semibold">
                         @if ($shipping_type == 1 || $shipping_cost == 0)
-                            Gratis
+                            <p class="text-green-400">Gratis</p>
                         @else
                             {{$shipping_cost}} $                           
                         @endif
