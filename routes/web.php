@@ -9,6 +9,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SearchController;
 use App\Livewire\ShoppingBag;
 use App\Livewire\CreateOrder;
+use App\Livewire\PaymentOrder;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,5 +42,7 @@ Route::get('shopping-bag',ShoppingBag::class)->name('shopping-bag');
 //Creacion de ordenes (controlado por un componente de livewire)
 Route::get('orders/create',CreateOrder::class)->middleware('auth')->name('orders.create');
 
-//Despues de generar la orden aqui se paga, recibe el id de la orden
-Route::get('orders/{order}/payment',[OrderController::class,'payment'])->name('orders.payment');
+Route::get('orders/{order}',[OrderController::class,'show'])->name('orders.show');
+
+//Despues de generar la orden aqui se paga, recibe el id de la orden (Tambien controlado por un componente livewire)
+Route::get('orders/{order}/payment',PaymentOrder::class)->name('orders.payment');

@@ -15,4 +15,9 @@ class OrderController extends Controller
 
         return view('Orders.payment',compact('order','items'));
     }
+
+    public function show(Order $order)
+    {
+        return view('Orders.show',compact('order'));
+    }
 }

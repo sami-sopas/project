@@ -1,4 +1,4 @@
-<x-app-layout>
+<div>
 
     <div class="grid grid-cols-5 gap-5 container py-8">
 
@@ -115,15 +115,15 @@
         </div>
     </div>
 
-    <script src="https://www.paypal.com/sdk/js?client-id={{ config('services.paypal.client_id') }}&components=buttons"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id={{ config('services.paypal.client_id') }}&components=buttons">
+    </script>
     <script src="https://www.paypal.com/sdk/js?client-id={{ config('services.paypal.client_id') }}&locale=ex_MX"></script>
 
     <!-- Renderizar boton de paypal -->
     <script>
-
         paypal.Buttons({
 
-            createOrder: function(data, actions){
+            createOrder: function(data, actions) {
 
                 return actions.order.create({
 
@@ -141,17 +141,20 @@
 
             },
 
-            onApprove: function(data, actions){
+            onApprove: function(data, actions) {
 
-                return actions.order.capture().then(function(details){
+                return actions.order.capture().then(function(details) {
 
-                    alert('Transaccion procesada para ' + details.payer.name.given_name)
-
+                    //alert('Transaccion procesada para ' + details.payer.name.given_name)
+                    //Emitir evento de livewire PaymentOrder, funcion payOrder
+                    @this.call('payOrder');
+                    console.log('pago procesado')
                 })
 
             }
 
         }).render("#paypal-button-container");
-
     </script>
-</x-app-layout>
+
+
+</div>
