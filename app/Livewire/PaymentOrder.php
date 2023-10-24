@@ -6,8 +6,14 @@ use App\Models\Order;
 use Livewire\Component;
 use Livewire\Attributes\On;
 
+//Para usar policies
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 class PaymentOrder extends Component
 {
+    //Autorizar policies
+    use AuthorizesRequests;
+
     public $order;
 
     public function mount(Order $order)
@@ -27,6 +33,12 @@ class PaymentOrder extends Component
 
     public function render()
     {
+        //Utilizando OrderPolicy, para validar que sea su orden
+        $this->authorize('author',$this->order);
+
+        //Validar que sea suya y se prohibe si ya se pago la orden
+        $this->authorize('payment',$this->order);
+
         $items = json_decode($this->order->content);
 
         return view('livewire.payment-order',compact('items'));

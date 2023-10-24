@@ -39,11 +39,17 @@ Route::resource('products',ProductController::class);
 //Ruta para la bolsa de compras, controlada por un componente de livewire
 Route::get('shopping-bag',ShoppingBag::class)->name('shopping-bag');
 
-//Creacion de ordenes (controlado por un componente de livewire)
-Route::get('orders/create',CreateOrder::class)->middleware('auth')->name('orders.create');
+//Rutas protegidas
+Route::middleware(['auth'])->group(function(){
 
-//Despues de pagar, se redirecciona aqui, donde podra ver sus ordenes
-Route::get('orders/{order}',[OrderController::class,'show'])->name('orders.show');
+    //Creacion de ordenes (controlado por un componente de livewire)
+    Route::get('orders/create',CreateOrder::class)->name('orders.create');
 
-//Despues de generar la orden aqui se paga, recibe el id de la orden (Tambien controlado por un componente livewire)
-Route::get('orders/{order}/payment',PaymentOrder::class)->name('orders.payment');
+    //Despues de pagar, se redirecciona aqui, donde podra ver sus ordenes
+    Route::get('orders/{order}',[OrderController::class,'show'])->name('orders.show');
+
+    //Despues de generar la orden aqui se paga, recibe el id de la orden (Tambien controlado por un componente livewire)
+    Route::get('orders/{order}/payment',PaymentOrder::class)->name('orders.payment');
+
+});
+

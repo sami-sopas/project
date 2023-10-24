@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -19,6 +20,9 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
+        //Validamos utilizando la OrderPolicy, para que acceda a su orden
+        $this->authorize('author',$order);
+
         //Obtener los items de esa orden
         $items = json_decode($order->content);
 
