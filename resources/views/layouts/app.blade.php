@@ -25,13 +25,15 @@
         <link rel="stylesheet" href=" {{ asset('vendor/fontawesome-free-6.4.2-web/css/all.min.css') }}">
         @livewireStyles
     </head>
+    
     <body class="font-sans antialiased">
         <x-banner/>
-
         <div class="min-h-screen">
             <!-- LLama a un componente de livewire -->
             {{-- @livewire('nav-bar') --}}
+            
             @livewire('menu')
+            
 
             {{-- 
             <!-- Page Heading -->
@@ -47,7 +49,6 @@
 
             <!-- Page Content -->
             <main>
-                <!-- En este slot se renderiza el dashboard -->
                 {{ $slot }}
             </main>
 

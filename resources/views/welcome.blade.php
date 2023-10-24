@@ -1,5 +1,6 @@
 <x-app-layout>
 <div>
+  <x-banner/> {{-- Esto deberia salir hasta arriba y no aqui--}}
 
   <!--
     - HEADER

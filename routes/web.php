@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\WelcomeController;
 use App\Livewire\ShoppingBag;
 use App\Livewire\CreateOrder;
 use App\Livewire\PaymentOrder;
@@ -22,9 +23,8 @@ use App\Livewire\PaymentOrder;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Vista inicio
+Route::get('/', WelcomeController::class);
 
 //Muestra vista cuando dan enter o click al boton de buscar
 Route::get('search',SearchController::class)->name('search');

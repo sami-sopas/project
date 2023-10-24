@@ -16,8 +16,7 @@
 
                         @if ($order->shipping_type == 1)
                             {{-- Recoger en tienda --}}
-                            <p>Los productos deben ser recogidos en tienda</p>
-                            <p>C. Othón Blanco, Guadalajara, Jal., Mexico</p>
+                            <p>Los productos deben ser recogidos en tienda C. Othón Blanco, Guadalajara, Jal., Mexico</p>
                         @else
                             {{-- Mandar a domicilio --}}
                             <p>Los productos serán enviados a {{ $order->address }} </p>
@@ -59,7 +58,7 @@
                                                 </h1>
                                                 <div class="text-xs text-gray-600">
                                                     @isset($item->options->color)
-                                                        Color: {{ $item->options->color }}
+                                                        Color: {{ $item->options->color->name }}
                                                     @endisset
 
                                                     @isset($item->options->size)
@@ -94,11 +93,18 @@
             <div class="bg-white rounded-lg shadow-lg px-6 pt-6">
                 <div class="flex justify-between items-center mb-4">
                     <div>
-                        img aqui
+                        <img 
+                        class="w-52 ml-7"
+                        src="{{ asset('img/payment.jpg')}}" 
+                        alt="payment">
                     </div>
                     <div class="text-gray-700">
                         <p class="text-sm font-semibold mb-2">
-                            Envio: {{ $order->shipping_cost }} $
+                            @if ($order->shipping_cost == 0)
+                                Envio : <span class="text-green-500 font-bold">Gratis</span>
+                            @else
+                                Envio: {{ $order->shipping_cost }} $
+                            @endif
                         </p>
                         <p class="text-sm font-semibold mb-2">
                             Subtotal: {{ $order->total - $order->shipping_cost }} $

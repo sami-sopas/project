@@ -2,11 +2,19 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         <!-- Numero de orden -->
-        <div class="bg-white rounded-lg shadow-lg px-6 py-4 mb-6">
+        <div class="bg-white rounded-lg shadow-lg px-6 py-4 mb-6 flex items-center justify-between">
             <p class="text-gray-700">
                 <span class="font-semibold">Número de Orden: </span> {{ $order->id }}
             </p>
+            
+            {{--Mostrar orden solo en orden sin pagar--}}
+            @if ($order->status == 1)
+            <a href="{{ route('orders.payment', $order) }}" class="focus:outline-none text-white bg-red-700 hover:bg-red-500 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-90">
+                Ir a pagar
+            </a>
+            @endif
         </div>
+        
 
         <!-- Stauts de la orden -->
         <div class="bg-white rounded-lg shadow-lg px-12 py-8 mb-6 flex items-center">
