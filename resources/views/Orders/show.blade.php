@@ -99,7 +99,7 @@
                                             </h1>
                                             <div class="text-xs text-gray-600">
                                                 @isset($item->options->color)
-                                                    Color: {{ $item->options->color }}
+                                                    Color: {{ $item->options->color->name }}
                                                 @endisset
 
                                                 @isset($item->options->size)

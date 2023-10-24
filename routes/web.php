@@ -42,6 +42,9 @@ Route::get('shopping-bag',ShoppingBag::class)->name('shopping-bag');
 //Rutas protegidas
 Route::middleware(['auth'])->group(function(){
 
+    //Ruta para mostrar las ordenes del usuario
+    Route::get('orders',[OrderController::class,'index'])->name('orders.index');
+
     //Creacion de ordenes (controlado por un componente de livewire)
     Route::get('orders/create',CreateOrder::class)->name('orders.create');
 

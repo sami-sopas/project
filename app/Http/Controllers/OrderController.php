@@ -18,6 +18,14 @@ class OrderController extends Controller
     //     return view('Orders.payment',compact('order','items'));
     // }
 
+    public function index()
+    {
+        //Rescatar ordenes del usuario
+        $orders = Order::where('user_id',auth()->user()->id)->get();
+
+        return view('Orders.index',compact('orders'));
+    }
+
     public function show(Order $order)
     {
         //Validamos utilizando la OrderPolicy, para que acceda a su orden
