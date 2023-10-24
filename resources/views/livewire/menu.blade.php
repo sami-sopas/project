@@ -5,7 +5,11 @@
         <div class="container">
 
             <a href="/" class="header-logo">
-                <img src="./assets/images/logo/logo.svg" alt="Anon's logo" width="120" height="36">
+                <img 
+                src="{{ asset('img/logo.png') }}" 
+                alt="logo" 
+                width="80" 
+                height="80">
             </a>
 
             <!-- Barra de busqueda -->
