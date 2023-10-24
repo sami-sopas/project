@@ -4,55 +4,55 @@
 
         <!-- Cuadros de ordenes informativos -->
         <section class="grid grid-cols-5 gap-6 text-white font-semibold">
-            <div class="bg-red-500 bg-opacity-80 rounded-lg px-12 pt-8 pb-4">
+            <a href="{{ route('orders.index') . '?status=1'}}" class="bg-red-500 bg-opacity-80 rounded-lg px-12 pt-8 pb-4">
                 <p class="text-center text-2xl">
-                    {{ $orders->where('status',1)->count() }}
+                    {{ $pending }}
                 </p>
                 <p class="uppercase text-center">Pendiente</p>
                 <p class="text-center text-2xl mt-2">
                     <i class="fas fa-business-time"></i>
                 </p>
-            </div>
+            </a>
 
-            <div class="bg-gray-500 bg-opacity-80 rounded-lg px-12 pt-8 pb-4">
+            <a href="{{ route('orders.index') . '?status=2'}}" class="bg-gray-500 bg-opacity-80 rounded-lg px-12 pt-8 pb-4">
                 <p class="text-center text-2xl">
-                    {{ $orders->where('status',2)->count() }}
+                    {{ $received }}
                 </p>
                 <p class="uppercase text-center">Recibido</p>
                 <p class="text-center text-2xl mt-2">
                     <i class="fas fa-credit-card"></i>
                 </p>
-            </div>
+            </a>
 
-            <div class="bg-yellow-400 bg-opacity-80 rounded-lg px-12 pt-8 pb-4">
+            <a href="{{ route('orders.index') . '?status=3'}}" class="bg-yellow-400 bg-opacity-80 rounded-lg px-12 pt-8 pb-4">
                 <p class="text-center text-2xl">
-                    {{ $orders->where('status',3)->count() }}
+                    {{ $sent }}
                 </p>
                 <p class="uppercase text-center">Enviado</p>
                 <p class="text-center text-2xl mt-2">
                     <i class="fas fa-truck"></i>
                 </p>
-            </div>
+            </a>
 
-            <div class="bg-pink-500 bg-opacity-80 rounded-lg px-12 pt-8 pb-4">
+            <a href="{{ route('orders.index') . '?status=4'}}" class="bg-pink-500 bg-opacity-80 rounded-lg px-12 pt-8 pb-4">
                 <p class="text-center text-2xl">
-                    {{ $orders->where('status',4)->count() }}
+                    {{ $delivered }}
                 </p>
                 <p class="uppercase text-center">Entregado</p>
                 <p class="text-center text-2xl mt-2">
                     <i class="fas fa-check-circle"></i>
                 </p>
-            </div>
+            </a>
 
-            <div class="bg-green-500 bg-opacity-80 rounded-lg px-12 pt-8 pb-4">
+            <a href="{{ route('orders.index') . '?status=5'}}" class="bg-green-500 bg-opacity-80 rounded-lg px-12 pt-8 pb-4">
                 <p class="text-center text-2xl">
-                    {{ $orders->where('status',5)->count() }}
+                    {{ $canceled }}
                 </p>
                 <p class="uppercase text-center">Cancelado</p>
                 <p class="text-center text-2xl mt-2">
                     <i class="fas fa-times-circle"></i>
                 </p>
-            </div>
+            </a>
         </section>
 
         <section class="bg-white shadow-md rounded-lg px-12 py-8 mt-12 font-semibold text-gray-800">

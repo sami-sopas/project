@@ -21,9 +21,34 @@ class OrderController extends Controller
     public function index()
     {
         //Rescatar ordenes del usuario
-        $orders = Order::where('user_id',auth()->user()->id)->get();
+        //$orders = Order::where('user_id',auth()->user()->id)->get();
 
-        return view('Orders.index',compact('orders'));
+        //query dinamica, depende de lo que se envie por la URL
+        $orders = Order::query()->where('user_id',auth()->user()->id);
+
+        //Filtro
+        if(request('status')){
+            $orders->where('status',request('status'));
+        }
+
+        //Generar la coleccion
+        $orders = $orders->get();
+
+        //Variables para mostrar los contadores de ordenes que pertenecen al usuario
+        $pending = Order::where('status',1)->where('user_id',auth()->user()->id)->count();
+        $received = Order::where('status',2)->where('user_id',auth()->user()->id)->count();
+        $sent = Order::where('status',3)->where('user_id',auth()->user()->id)->count();
+        $delivered = Order::where('status',4)->where('user_id',auth()->user()->id)->count();
+        $canceled = Order::where('status',5)->where('user_id',auth()->user()->id)->count();
+
+        return view('Orders.index',compact(
+                                    'orders',
+                                    'pending',
+                                    'received',
+                                    'sent',
+                                    'delivered',
+                                    'canceled'
+                                    ));
     }
 
     public function show(Order $order)
