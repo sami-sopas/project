@@ -15,12 +15,7 @@ class CreateProduct extends Component
     //Datos seleccionados
     public $category_id = "", $subcategory_id = "";
     
-    public $name, $slug, $description;
-
-    public function editorUpdated($content)
-    {   
-    $this->description = $content;
-    }
+    public $name, $slug, $description, $price, $quantity;
 
     //Cada que se actualize la categoria, actualizamos sus subcategorias
     public function updateCategoryId($value)
@@ -29,6 +24,12 @@ class CreateProduct extends Component
 
         //Si se selecciona otra categoria, reseteamos las subcategorias
         $this->reset('subcategory_id');
+    }
+
+    //Propiedad computada para saber si la subcategoria tiene color o size
+    public function getSubcategoryProperty(){
+        //Encontrar subcategoria seleccionada
+        return Subcategory::find($this->subcategory_id);
     }
 
     //Queda a la escucha cuando cambie la propiedad name

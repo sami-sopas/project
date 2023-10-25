@@ -75,5 +75,40 @@
             rows="4">
         </textarea>
     </div>
+
+    {{-- Precio --}}
+    <div class="mb-4">
+            <x-label value="Precio" />
+            <x-input 
+                wire:model.live="price"
+                type="number" 
+                step=".01"
+                class="w-full"
+                wire:model.live="slug"
+                placegolder="Precio del producto"
+            />
+    </div>
+
+    {{-- Imprime todo el objeto de subcategoria seleccioanda: 
+        {{$this->subcategory}} --}}
+    {{$this->subcategory}}
+
+    @if ($subcategory_id)
+        {{-- Productos que no necesitan color y talla--}}
+        @if (!$this->subcategory->color && !$this->subcategory->size)
+            
+            <div>
+                <x-label value="Cantidad" />
+                <x-input 
+                    wire:model.live="quantity"
+                    type="number" 
+                    class="w-full" />
+
+            </div>
+
+        @endif      
+    @endif
+
+    
     
 </div>
