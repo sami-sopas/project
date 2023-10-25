@@ -120,8 +120,17 @@ class CreateOrder extends Component
 
         $order->save();
 
+        /* Antes de eliminar el carrito, descontaremos la cantidad de
+           items a la tabla donde se guarda dicha cantidad */
+        foreach(Cart::content() as $item){
+            //Funcion que definimos en el helper
+            discount($item);
+        }
+
         //Una vez generada la orden, eliminamos los items del carrito
         Cart::destroy();
+
+
 
         return redirect()->route('orders.payment',$order);
     }

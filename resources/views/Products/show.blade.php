@@ -191,7 +191,7 @@
                             {{-- Productos que tienen talla --}}
                             @if ($product->subcategory->size)
                                 @livewire('add-bag-item-size',['product' => $product])
-                            {{-- Productos que no tienen color --}}
+                            {{-- Productos que tienen color --}}
                             @elseif ($product->subcategory->color)
                                 @livewire('add-bag-item-color',['product' => $product])
                             @else

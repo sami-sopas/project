@@ -82,3 +82,44 @@ function qty_available($productId, $colorId = null, $sizeId = null)
     return quantity($productId, $colorId, $sizeId) - qty_added($productId, $colorId, $sizeId);
     
 }
+
+//Descontar items del carrito, a la tabla donde se guarde la cantidad
+function discount($item)
+{
+    //Encontrar el producto que tiene en el carrito
+    $product = Product::find($item->id);
+
+    $qty_available = qty_available($item->id, $item->options->color->id, $item->options->size_id);
+
+
+    //Determinar el tipo de producto
+    if($item->options->size_id){
+
+        //Recuperar informacion de la talla
+        $size = Size::find($item->options->size_id);
+
+        //Eliminar registro de talla en la tabla pivote, para esto se necesita el id color de la talla
+        $size->colors()->detach($item->options->color_id);
+
+        //Volver a crear registro de talla, pero con la cantidad nueva
+        $size->colors()->attach([
+            $item->options->size_id => ['quantity' => $qty_available]
+        ]);
+
+    }elseif($item->options->color_id){
+
+        //Lo mismo pero ahora con color, eliminar registro de color_product
+        $product->colors()->detach($item->options->color_id);
+
+        //Generar de nuevo, con la nueva qty
+        $product->colors()->attach([
+            $item->options->color_id => ['quantity' => $qty_available]
+        ]);
+
+    }else{
+        //Producto sin cantidad ni color
+        $product->quantity = $qty_available;
+        $product->save();
+    }
+
+}
