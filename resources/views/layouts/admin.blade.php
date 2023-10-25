@@ -23,6 +23,9 @@
         <!-- Styles -->
         <!-- Iconos font awesome -->
         <link rel="stylesheet" href=" {{ asset('vendor/fontawesome-free-6.4.2-web/css/all.min.css') }}">
+
+        {{-- CKEditor--}}
+        <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
         @livewireStyles
     </head>
     

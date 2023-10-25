@@ -6,12 +6,21 @@ use Livewire\Component;
 use App\Models\Category;
 use App\Models\Subcategory;
 
+use Illuminate\Support\Str;
+
 class CreateProduct extends Component
 {
     public $categories, $subcategories = [];
 
     //Datos seleccionados
     public $category_id = "", $subcategory_id = "";
+    
+    public $name, $slug, $description;
+
+    public function editorUpdated($content)
+    {   
+    $this->description = $content;
+    }
 
     //Cada que se actualize la categoria, actualizamos sus subcategorias
     public function updateCategoryId($value)
@@ -20,6 +29,12 @@ class CreateProduct extends Component
 
         //Si se selecciona otra categoria, reseteamos las subcategorias
         $this->reset('subcategory_id');
+    }
+
+    //Queda a la escucha cuando cambie la propiedad name
+    public function updatedName($value)
+    {
+        $this->slug = Str::slug($value);
     }
 
     //Al tener seleccionada una categoria, y seleccionar una sub, se actualiza su id
