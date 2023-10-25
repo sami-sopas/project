@@ -1,16 +1,17 @@
 <?php
 
+use App\Models\Order;
 use App\Models\Category;
-use Illuminate\Support\Facades\Route;
-use Gloudemans\Shoppingcart\Facades\Cart;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\WelcomeController;
-use App\Livewire\ShoppingBag;
 use App\Livewire\CreateOrder;
+use App\Livewire\ShoppingBag;
 use App\Livewire\PaymentOrder;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,3 +57,29 @@ Route::middleware(['auth'])->group(function(){
 
 });
 
+
+//ELIMINA LAS ORDENES, PASADAS 1 HORA, FUNCIONA DE MANERA MANUAL, PERO AUN NO EN KERNEL.PHP
+Route::get('prueba',function(){
+
+    //La hora actual menos 60 min
+    $time = now()->subMinutes(1);
+
+    $orders = Order::where('status',1)->where('created_at','<=',$time)->get();
+
+    foreach($orders as $order)
+    {
+        $items = json_decode($order->content);
+
+        foreach($items as $item){
+            //Recuperar cantidad de items en caso de no pagar la orden
+            increase($item);
+        }
+    }
+
+    //Cambiar status de la orden a cancelado
+    $order->status = 5;
+
+    $order->save();
+
+    return "exito";
+});
