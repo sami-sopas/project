@@ -15,7 +15,11 @@
                     <option value="{{$category->id}}">{{$category->name}}</option>
                 @endforeach
             </select>
+
+            <x-input-error for="category_id" />
+
         </div>
+
 
         {{-- Subcategorias --}}
         <div>
@@ -27,8 +31,10 @@
                     <option value="{{$subcategory->id}}">{{$subcategory->name}}</option>
                 @endforeach
             </select>
-        </div>
 
+            <x-input-error for="subcategory_id" />
+
+        </div>
 
     </div>
 
@@ -40,6 +46,8 @@
             class="w-full" 
             wire:model.live="name"
             placeholder="Ingrese el nombre del producto" />
+        
+        <x-input-error for="name" />
     </div>
 
     {{-- Slug ( no se muestra )--}}
@@ -51,29 +59,34 @@
             disabled 
             wire:model.live="slug"
             placegolder="Slug del producto" />
+        
+        <x-input-error for="slug" />
     </div>
 
     {{-- Descripcion --}}
-    <div class="mb-4" wire:ignore> {{-- wire:ignore, para q renderize todo menos este componente--}}
+    <div class="mb-4"> {{-- wire:ignore, para q renderize todo menos este componente--}}
 
-        <x-label value="Descripcion" />
-        <textarea 
-            wire:model.live="description"
-            x-data {{-- Inicializar CKEditor--}}
-            x-init="ClassicEditor.create($refs.myEditor)
-                .then(function(editor){
-                    editor.model.document.on('change:data', () => {
-                        @this.set('description', editor.getData())
+        <div wire:ignore>
+            <x-label value="Descripcion" />
+            <textarea 
+                wire:model.live="description"
+                x-data {{-- Inicializar CKEditor--}}
+                x-init="ClassicEditor.create($refs.myEditor)
+                    .then(function(editor){
+                        editor.model.document.on('change:data', () => {
+                            @this.set('description', editor.getData())
+                        })
                     })
-                })
-                .catch( error => {
-                    console.error( error );
-                } );"
-            x-ref="myEditor"
-            class="w-full border border-gray-400 rounded-md" 
-            cols="30" 
-            rows="4">
-        </textarea>
+                    .catch( error => {
+                        console.error( error );
+                    } );"
+                x-ref="myEditor"
+                class="w-full border border-gray-400 rounded-md" 
+                cols="30" 
+                rows="4">
+            </textarea>
+        </div>
+        <x-input-error for="description" />
     </div>
 
     {{-- Precio --}}
@@ -84,9 +97,8 @@
                 type="number" 
                 step=".01"
                 class="w-full"
-                wire:model.live="slug"
-                placegolder="Precio del producto"
             />
+            <x-input-error for="price" />
     </div>
 
     {{-- Imprime todo el objeto de subcategoria seleccioanda: 
@@ -103,11 +115,19 @@
                     wire:model.live="quantity"
                     type="number" 
                     class="w-full" />
-
+                <x-input-error for="quantity" />
             </div>
 
         @endif      
     @endif
+
+    <div class="flex mt-4">
+        <x-button 
+            wire:click="save"
+            class="ml-auto">
+            Crear producto
+        </x-button>
+    </div>
 
     
     

@@ -2,10 +2,11 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\Product;
 use Livewire\Component;
 use App\Models\Category;
-use App\Models\Subcategory;
 
+use App\Models\Subcategory;
 use Illuminate\Support\Str;
 
 class CreateProduct extends Component
@@ -16,6 +17,16 @@ class CreateProduct extends Component
     public $category_id = "", $subcategory_id = "";
     
     public $name, $slug, $description, $price, $quantity;
+
+    //Validaciones
+    protected $rules = [
+        'category_id' => 'required',
+        'subcategory_id' => 'required',
+        'name' => 'required',
+        'slug' => 'required|unique:products',
+        'description' => 'required',
+        'price' => 'required'
+    ];
 
     //Cada que se actualize la categoria, actualizamos sus subcategorias
     public function updateCategoryId($value)
@@ -47,6 +58,41 @@ class CreateProduct extends Component
     public function mount()
     {
         $this->categories = Category::all();
+    }
+
+    //Guardar en la BD
+    public function save()
+    {
+        //Agregar rules dependiendo si tiene color o size
+        $rules = $this->rules;
+
+        //Mostrar errores en caso de mostrar los inputs especiales
+        if($this->subcategory_id){
+            if(!$this->subcategory->color && !$this->subcategory->size){
+                $rules['quantity'] = 'required';
+            }
+        }
+
+        $this->validate($rules);
+
+        //Post validate
+        $product = new Product();
+
+        $product->name = $this->name;
+        $product->slug = $this->slug;
+        $product->description = $this->description;
+        $product->subcategory_id = $this->subcategory_id;
+        $product->price = $this->price;
+        
+        //Producto sin color y talla? aqui se agarra su cantidad
+        if($this->subcategory_id){
+            if(!$this->subcategory->color && !$this->subcategory->size){
+                $product->quantity = $this->quantity;
+            }
+        }
+
+        $product->save();
+ 
     }
 
     public function render()
