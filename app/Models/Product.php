@@ -60,7 +60,7 @@ class Product extends Model
     {
         //With pivot, para poder llamarlo por la clase color mediante ese pivotazo
         //Cada que recuperemos info de la tabla pivot, se recupera tambien la informacion de quantity
-        return $this->belongsToMany(Color::class)->withPivot('quantity');
+        return $this->belongsToMany(Color::class)->withPivot('quantity','id');
     }
 
     //Relacion polimorfica

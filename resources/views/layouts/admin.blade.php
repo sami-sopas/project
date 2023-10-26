@@ -26,6 +26,10 @@
 
         {{-- CKEditor--}}
         <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+
+        {{-- SweetAlert 2--}}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         @livewireStyles
     </head>
     

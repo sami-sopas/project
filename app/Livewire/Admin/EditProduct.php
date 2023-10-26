@@ -55,13 +55,21 @@ class EditProduct extends Component
 
         //Si se selecciona otra categoria, reseteamos las subcategorias
         $this->subcategory_id = '';
+        $this->reset('subcategory');
+
+    }
+
+    //Actualizar subcategoria, al seleccionar otra
+    public function updatedSubcategoryId($value)
+    {
+        $this->subcategory = Subcategory::find($value);
     }
 
     //Propiedad computada
-    public function getSubcategoryProperty(){
- 
-        return Subcategory::find($this->subcategory_id);
-    }
+    // public function getSubcategoryProperty(){
+
+    //     return Subcategory::find($this->subcategory_id);
+    // }
 
         //Queda a la escucha cuando cambie la propiedad name
     public function updatedName($value)
@@ -85,6 +93,7 @@ class EditProduct extends Component
 
         $this->validate($rules);
 
+        //Actualizar registro
         $this->product->update([
             'category_id' => $this->category_id,
             'subcategory_id' => $this->subcategory_id,
@@ -94,9 +103,12 @@ class EditProduct extends Component
             'price' => $this->price,
             'quantity' => $this->quantity
         ]);
-        
-        
 
+        //Emitir evento
+        $this->dispatch('saved');
+        
+        //Actualizar variable producto
+        $this->product = $this->product->fresh();
     }
 
     public function render()
