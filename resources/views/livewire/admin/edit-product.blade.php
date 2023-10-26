@@ -4,6 +4,8 @@
         Creacion de producto
     </h1>
 
+    {{$product}}
+
     <div class="grid grid-cols-2 gap-6 mb-4 ">
         {{-- Categorias --}}
         <div>
@@ -19,11 +21,9 @@
             <x-input-error for="category_id" />
 
         </div>
-
-
         {{-- Subcategorias --}}
         <div>
-            <x-label value="Subcategorias" /> {{--Cada que haya un cambio en este select, se actualiza category_id--}}
+            <x-label value="Subcategorias" />
             <select name="" class="w-full rounded-md" wire:model.live="subcategory_id">
                 <option value="" selected disabled>Seleccione una subcategoria</option>
 
@@ -35,7 +35,6 @@
             <x-input-error for="subcategory_id" />
 
         </div>
-
     </div>
 
     {{-- Nombre --}}
@@ -44,41 +43,40 @@
         <x-input 
             type="text" 
             class="w-full" 
-            wire:model.live="name"
+            wire:model="name"
             placeholder="Ingrese el nombre del producto" />
         
         <x-input-error for="name" />
     </div>
-
-    {{-- Slug ( no se muestra )--}}
+    
+    {{-- Slug (no se muestra) --}}
     <div class="mb-4">
         <x-label value="Slug" />
         <x-input 
             type="text" 
             class="w-full"
             disabled 
-            wire:model.live="slug"
-            placegolder="Slug del producto" />
+            wire:model="slug"
+            placeholder="Slug del producto" />
         
-        <x-input-error for="slug" />
+        <x-input-error for="product.slug" />
     </div>
-
-    {{-- Descripcion --}}
-    <div class="mb-4"> {{-- wire:ignore, para q renderize todo menos este componente--}}
-
+    
+    {{-- Descripción --}}
+    <div class="mb-4" wire:ignore.self>
         <div wire:ignore>
-            <x-label value="Descripcion" />
+            <x-label value="Descripción" />
             <textarea 
-                wire:model.live="description"
-                x-data {{-- Inicializar CKEditor--}}
+                wire:model="description"
+                x-data
                 x-init="ClassicEditor.create($refs.myEditor)
-                    .then(function(editor){
+                    .then(function(editor) {
                         editor.model.document.on('change:data', () => {
                             @this.set('description', editor.getData())
                         })
                     })
-                    .catch( error => {
-                        console.error( error );
+                    .catch(error => {
+                        console.error(error);
                     } );"
                 x-ref="myEditor"
                 class="w-full border border-gray-400 rounded-md" 
@@ -88,44 +86,41 @@
         </div>
         <x-input-error for="description" />
     </div>
-
+    
     {{-- Precio --}}
     <div class="mb-4">
-            <x-label value="Precio" />
-            <x-input 
-                wire:model.live="price"
-                type="number" 
-                step=".01"
-                class="w-full"
-            />
-            <x-input-error for="price" />
+        <x-label value="Precio" />
+        <x-input 
+            wire:model="price"
+            type="number" 
+            step=".01"
+            class="w-full"
+        />
+        <x-input-error for="price" />
     </div>
+    
 
     {{-- Imprime todo el objeto de subcategoria seleccioanda: 
         {{$this->subcategory}} --}}
-    {{$this->subcategory}}
 
-    @if ($subcategory_id)
-        {{-- Productos que no necesitan color y talla--}}
         @if (!$this->subcategory->color && !$this->subcategory->size)
             
             <div>
                 <x-label value="Cantidad" />
                 <x-input 
-                    wire:model.live="quantity"
+                    wire:model="quantity"
                     type="number" 
                     class="w-full" />
                 <x-input-error for="quantity" />
             </div>
 
         @endif      
-    @endif
 
     <div class="flex mt-4">
         <x-button 
             wire:click="save"
             class="ml-auto">
-            Crear producto
+            Actualizar producto
         </x-button>
     </div>
 

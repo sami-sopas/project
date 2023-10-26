@@ -29,7 +29,7 @@ class CreateProduct extends Component
     ];
 
     //Cada que se actualize la categoria, actualizamos sus subcategorias
-    public function updateCategoryId($value)
+    public function updatedCategoryId($value)
     {
         $this->subcategories = Subcategory::where('category_id',$value)->get();
 
@@ -47,12 +47,6 @@ class CreateProduct extends Component
     public function updatedName($value)
     {
         $this->slug = Str::slug($value);
-    }
-
-    //Al tener seleccionada una categoria, y seleccionar una sub, se actualiza su id
-    public function updateSubcategoryId($value)
-    {
-    $this->subcategory_id = $value;
     }
 
     public function mount()
@@ -92,6 +86,8 @@ class CreateProduct extends Component
         }
 
         $product->save();
+
+        return redirect()->route('admin.index');
  
     }
 
