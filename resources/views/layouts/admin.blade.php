@@ -1,78 +1,93 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Icono pagina -->
-        <link rel="shortcut icon" href="{{ asset('template-app/assets/images/logo/icons8-kuromi-32.png') }}" type="image/x-icon">
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Custom css -->
-        <link rel="stylesheet" href="{{ asset('template-app/assets/css/style-prefix.css') }}">
+    <!-- Icono pagina -->
+    <link rel="shortcut icon" href="{{ asset('template-app/assets/images/logo/icons8-kuromi-32.png') }}"
+        type="image/x-icon">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- Custom css -->
+    <link rel="stylesheet" href="{{ asset('template-app/assets/css/style-prefix.css') }}">
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Styles -->
-        <!-- Iconos font awesome -->
-        <link rel="stylesheet" href=" {{ asset('vendor/fontawesome-free-6.4.2-web/css/all.min.css') }}">
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        {{-- CKEditor--}}
-        <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+    <!-- Styles -->
+    <!-- Iconos font awesome -->
+    <link rel="stylesheet" href=" {{ asset('vendor/fontawesome-free-6.4.2-web/css/all.min.css') }}">
 
-        {{-- SweetAlert 2--}}
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- CKEditor --}}
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 
-        @livewireStyles
-    </head>
-    
-    <body class="font-sans antialiased">
-        <x-banner/>
-        <div class="min-h-screen">
-            <!-- LLama a un componente de livewire -->
-            {{-- @livewire('nav-bar') --}}
-            
-            @livewire('navigation-menu')
-        
-            
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        <!-- Slot por nombre, se renderiza con el x-slot name="header" -->
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-            
+    {{-- SweetAlert 2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+    @livewireStyles
+</head>
 
-            <!-- Footer -->
-            <x-footer/>
-        </div>
+<body class="font-sans antialiased">
+    <x-banner />
+    <div class="min-h-screen">
+        <!-- LLama a un componente de livewire -->
+        {{-- @livewire('nav-bar') --}}
 
-        @stack('modals')
+        @livewire('navigation-menu')
 
-        @livewireScripts
 
-        <!-- Custom JS -->
-        <script src="{{ asset('template-app/assets/js/script.js') }}"></script>
+        <!-- Page Heading -->
+        @if (isset($header))
+            <header class="bg-white dark:bg-gray-800 shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <!-- Slot por nombre, se renderiza con el x-slot name="header" -->
+                    {{ $header }}
+                </div>
+            </header>
+        @endif
 
-        <!-- Ionicon link -->
-        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-        @stack('script')
-    </body>
+        <!-- Page Content -->
+        <main>
+            {{ $slot }}
+        </main>
+
+        <!-- Footer -->
+        <x-footer />
+    </div>
+
+    @stack('modals')
+
+    @livewireScripts
+
+    <!-- Custom JS -->
+    <script src="{{ asset('template-app/assets/js/script.js') }}"></script>
+
+    <!-- Ionicon link -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    @stack('script')
+
+    {{-- Para mensajes de error del sweet alert --}}
+    <script>
+        //Este script escuchara al evento errorSize
+        Livewire.on('errorSize', mensaje => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: mensaje,
+            })
+        });
+    </script>
+</body>
+
 </html>

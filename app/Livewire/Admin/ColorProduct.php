@@ -33,18 +33,33 @@ class ColorProduct extends Component
     {
         $this->validate();
 
-        //Insertar registro en tabla intermedia (color-product)
-        $this->product->colors()->attach([
-            $this->color_id => [
-                'quantity' => $this->quantity
-            ]
-        ]);
+        //Existe ese registo ya en la tabla intermedia?, Este filtro lo obtiene
+        $pivot = Pivot::where('color_id',$this->color_id)
+                        ->where('product_id',$this->product->id)
+                        ->first();
+
+        //Existe! Entonces lo actualizamos para que se siga acumulando
+        if($pivot){
+            $pivot->quantity = $pivot->quantity + $this->quantity;
+            $pivot->save();
+        }
+        else{
+            //No existe, entonces lo agregamos
+            //Insertar registro en tabla intermedia (color-product)
+            $this->product->colors()->attach([
+                $this->color_id => [
+                    'quantity' => $this->quantity
+                ]
+            ]);
+        }
+
 
         $this->reset(['color_id','quantity']);
 
+        $this->dispatch('saved');
+        
         $this->product = $this->product->fresh();
 
-        $this->dispatch('saved');
     }
 
     //Actualizar colores en la tabla pivote

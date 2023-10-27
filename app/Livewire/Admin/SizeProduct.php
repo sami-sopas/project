@@ -20,12 +20,25 @@ class SizeProduct extends Component
     ];
 
     public function save(){
+
         $this->validate();
 
-        //Recuperar tallas del producto, y en la tabla sizes, agregar la nueva talla
-        $this->product->sizes()->create([
-            'name' => $this->name
-        ]);
+        //Validacion para que no se suban tallas repetidas
+        $size = Size::where('product_id',$this->product->id)
+                        ->where('name',$this->name)
+                        ->first();
+
+        if($size){
+            $this->dispatch('errorSize','Esa talla ya existe !');
+        }
+        else{
+            //Talla no existe, se agrega...
+            //Recuperar tallas del producto, y en la tabla sizes, agregar la nueva talla
+            $this->product->sizes()->create([
+                'name' => $this->name
+            ]);
+        }
+
 
         //Resetear campo
         $this->reset('name');

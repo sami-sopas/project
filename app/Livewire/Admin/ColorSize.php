@@ -32,12 +32,24 @@ class ColorSize extends Component
     {
         $this->validate();
 
-        //Agregar a tabla intermedia (color-size)
-        $this->size->colors()->attach([
-            $this->color_id => [
-                'quantity' => $this->quantity
-            ]
-        ]);
+        //Validar registros existentes
+        $pivot = Pivot::where('color_id',$this->color_id)
+                        ->where('size_id',$this->size->id)
+                        ->first();
+
+        if($pivot){
+            $pivot->quantity = $pivot->quantity + $this->quantity;
+            $pivot->save();
+        }
+        else{
+            //Agregar a tabla intermedia (color-size)
+            $this->size->colors()->attach([
+                $this->color_id => [
+                    'quantity' => $this->quantity
+                ]
+            ]);
+        }
+
 
         //Resetear color id  y cantidad
         $this->reset(['color_id','quantity']);
