@@ -5,6 +5,8 @@ use App\Livewire\Admin\ShowProducts;
 use App\Livewire\Admin\CreateProduct;
 use App\Livewire\Admin\EditProduct;
 
+use App\Http\Controllers\Admin\ProductController;
+
 //Ver productos, controlado por componente de Livewire
 Route::get('/',ShowProducts::class)->name('admin.index');
 
@@ -13,3 +15,6 @@ Route::get('products/{product}/edit',EditProduct::class)->name('admin.products.e
 
 //Crear producto
 Route::get('products/create',CreateProduct::class)->name('admin.products.create');
+
+//Almacenar imgs
+Route::post('products/{product}/files',[ProductController::class,'files'])->name('admin.products.files');

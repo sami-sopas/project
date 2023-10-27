@@ -10,7 +10,7 @@ class Image extends Model
 {
     use HasFactory;
 
-    protected $fillabel = [
+    protected $fillable = [
         'url',
         'imageable_id',
         'imageable_type',

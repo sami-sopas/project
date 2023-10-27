@@ -4,6 +4,11 @@
         Creacion de producto
     </h1>
 
+    {{--Dropzone--}}
+    <div class="mb-4" wire:ignore>
+        <form action="{{route('admin.products.files',$product)}}" method="POST" class="dropzone" id="my-awesome-dropzone">@csrf</form>
+    </div>
+
     <div class="bg-white shadow-xl rounded-lg p-6">
 
         {{ $product }}
@@ -130,4 +135,16 @@
             location.reload();
         });
     </script>
+
+    {{-- Configuraciones de dropzone--}}
+    @push('script')
+        <script>
+            Dropzone.options.myAwesomeDropzone = {
+                acceptedFiles: 'image/*',
+                dictDefaultMessage: "Arraste una imagen",
+                paramName: "file",
+                maxFilesize: 2, //MB
+            };
+        </script>
+    @endpush
 </div>
