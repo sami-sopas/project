@@ -90,9 +90,9 @@ class EditProduct extends Component
             }
         }
 
-
-        $this->validate($rules);
-
+        //$this->validate($rules);
+        
+    
         //Actualizar registro
         $this->product->update([
             'category_id' => $this->category_id,
@@ -104,11 +104,15 @@ class EditProduct extends Component
             'quantity' => $this->quantity
         ]);
 
+
         //Emitir evento
         $this->dispatch('saved');
         
         //Actualizar variable producto
         $this->product = $this->product->fresh();
+
+        //forzar la actualizacion de la pagina al actualizar producto en lo que veo q no jala
+        $this->dispatch('refreshPage');
     }
 
     public function render()

@@ -25,6 +25,7 @@ class Size extends Model
     //Relacion N a N entre Sizes y Colors
     public function colors() : BelongsToMany
     {
-        return $this->belongsToMany(Color::class)->withPivot('quantity');
+        //Para cuando acceda a colors->pivot, me traiga el id de esa tabla y la cantidad
+        return $this->belongsToMany(Color::class)->withPivot('quantity','id');
     }
 }

@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
 
             //LLave foranea del color
-            $table->foreignId('color_id')->constrained('colors');
+            $table->foreignId('color_id')->constrained('colors')->onDelete('cascade');;
 
             //LLave foranea del producto
-            $table->foreignId('product_id')->constrained('products');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');;
 
             $table->integer('quantity');
             $table->timestamps();

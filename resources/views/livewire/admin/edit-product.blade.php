@@ -124,4 +124,10 @@
 
         @endif
     @endif
+
+    <script>
+        Livewire.on('refreshPage', function () {
+            location.reload();
+        });
+    </script>
 </div>

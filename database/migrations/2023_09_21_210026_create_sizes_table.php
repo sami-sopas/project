@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
 
             //LLave foranea de products
-            $table->foreignId('product_id')->constrained('products');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');;
             $table->timestamps();
         });
     }
