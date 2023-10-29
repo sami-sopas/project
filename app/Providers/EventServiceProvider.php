@@ -13,6 +13,9 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
+use App\Models\Product;
+use App\Observers\ProductObserver;
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -45,7 +48,12 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        //Registrar Observador para el modelo Product
+        
+        /* Cada que realizemos una operacion CRUD en el modelo producto,
+           verifica con el observador si queremos escuchar algun metodo
+        */
+        Product::observe(ProductObserver::class);
     }
 
     /**

@@ -90,7 +90,7 @@ class ColorSize extends Component
         $this->reset('open');
     }
 
-    //Metodo que se llama desde el script de sweetAlert de edit-product
+    //Esta funcion se ejecuta a partir de EditProduct, ya que no pude llamarla desde el sweet alert
     #[On('delete')]
     public function delete(Pivot $pivot)
     {
