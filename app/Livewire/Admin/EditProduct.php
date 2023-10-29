@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\Image;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Category;
 use App\Models\Subcategory;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class EditProduct extends Component
@@ -111,9 +113,35 @@ class EditProduct extends Component
         //Actualizar variable producto
         $this->product = $this->product->fresh();
 
-        //forzar la actualizacion de la pagina al actualizar producto en lo que veo q no jala
-        $this->dispatch('refreshPage');
     }
+
+    public function deleteImage(Image $image)
+    {
+        //Eliminar imagen del servidor
+        Storage::delete([$image->url]);
+
+        //Eliminar de la BD
+        $image->delete();
+
+        //Actualizar producto
+        $this->product = $this->product->fresh();
+    }
+
+
+    //Refrescar productos, para que vuelva a cargar
+    public function refreshProduct()
+    {
+        $this->product = $this->product->fresh();
+    }
+
+    /*Metodo que se dispara al eliminar un Color de una talla,
+      este se ejecuta desde el sweetAlert del editProduct y se envia a traves
+      del boton eliminar del componente ColorSize, de aqui se manda al metodo delete
+      a donde realmente pertenece pero que no pude enviar desde el script de JS */
+     public function deleteColorSize($pivot)
+     {
+        $this->dispatch('delete', pivot: $pivot)->to(ColorSize::class);
+     }
 
     public function render()
     {

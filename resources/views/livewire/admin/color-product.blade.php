@@ -144,31 +144,4 @@
 
     </x-dialog-modal>
 
-    {{-- Para lo del sweet Alert --}}
-    @push('script')
-        <script>
-            //Cuando se llama a la evento deletePivot, se ejecuta el sweetAlert
-            Livewire.on('deletePivot', pivot => {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        //Emitir evento al componente, para que elimine el registro
-                        @this.call('delete', pivot);
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
-                    }
-                })
-            })
-        </script>
-    @endpush
 </div>

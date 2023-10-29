@@ -2,10 +2,11 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Color;
 use App\Models\Size;
+use App\Models\Color;
 use Livewire\Component;
 
+use Livewire\Attributes\On;
 use App\Models\ColorSize as Pivot;
 
 class ColorSize extends Component
@@ -87,6 +88,17 @@ class ColorSize extends Component
 
         //Cerrar modal
         $this->reset('open');
+    }
+
+    //Metodo que se llama desde el script de sweetAlert de edit-product
+    #[On('delete')]
+    public function delete(Pivot $pivot)
+    {
+        //Eliminar de la bd
+        $pivot->delete();
+
+        //Actuaizar talla
+        $this->size = $this->size->fresh();
     }
 
     public function render()

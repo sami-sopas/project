@@ -4,10 +4,37 @@
         Creacion de producto
     </h1>
 
-    {{--Dropzone--}}
+    {{--Dropzone MANEJADA POR EL CONTROLADOR ProductController--}}
     <div class="mb-4" wire:ignore>
         <form action="{{route('admin.products.files',$product)}}" method="POST" class="dropzone" id="my-awesome-dropzone">@csrf</form>
     </div>
+
+    {{-- EL producto tiene imagenes? Aqui se muestran--}}
+    @if ($product->images->count())
+        <section class="bg-white shadow-xl rounded-lg p-6 mb-4">
+            <h1 class="text-2xl text-center font-semibold mb-2">
+                Imagenes de producto
+            </h1>
+
+            <ul class="flex flex-wrap">
+               @foreach ($product->images as $image)
+                    <li class="relative" wire:key="image-{{$image->id}}">
+                        <img
+                            class="w-32 h-20 object-cover" 
+                            src="{{ Storage::url($image->url) }}" alt=""
+                        >
+
+                        <x-danger-button 
+                            wire:click="deleteImage({{$image->id}})"
+                            class="absolute right-2 top-2 font-bold text-3xl"
+                        >
+                            X
+                        </x-danger-button>
+                    </li>
+               @endforeach 
+            </ul>
+        </section>
+    @endif
 
     <div class="bg-white shadow-xl rounded-lg p-6">
 
@@ -130,21 +157,109 @@
         @endif
     @endif
 
-    <script>
-        Livewire.on('refreshPage', function () {
-            location.reload();
-        });
-    </script>
-
     {{-- Configuraciones de dropzone--}}
     @push('script')
-        <script>
-            Dropzone.options.myAwesomeDropzone = {
-                acceptedFiles: 'image/*',
-                dictDefaultMessage: "Arraste una imagen",
-                paramName: "file",
-                maxFilesize: 2, //MB
-            };
-        </script>
+    <script>
+        Dropzone.options.myAwesomeDropzone = {
+            acceptedFiles: 'image/*',
+            dictDefaultMessage: "Arraste una imagen",
+            paramName: "file",
+            maxFilesize: 2, //MB
+            init: function() {
+                var myDropzone = this;
+    
+                // Elimina la imagen del dropzone una vez subida
+                myDropzone.on("complete", function(file) {
+                    myDropzone.removeFile(file);
+                });
+    
+                // Se ejecuta este método cuando todas las imágenes en cola se subieron
+                myDropzone.on("queuecomplete", function() {
+                    console.log('Todas las imágenes se han subido');
+                    // Llama al método del componente Livewire
+                    @this.call('refreshProduct');
+                });
+            }
+        };
+
+        //El codigo que estaba en size-product 
+        //Cuando se llama a la evento deletePivot, se ejecuta el sweetAlert
+        Livewire.on('deleteSize', sizeId => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //Emitir evento al componente, para que elimine el registro
+                    @this.call('delete', sizeId);
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        })
+
+        //El que se llamaba desde edit-product
+        //Cuando se llama a la evento deletePivot, se ejecuta el sweetAlert
+        Livewire.on('deletePivot', pivot => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        //Emitir evento al componente, para que elimine el registro
+                        
+                        @this.call('delete', pivot);
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            })
+
+                    
+        //Dupicado
+        Livewire.on('deleteColorSize', pivot => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        
+                        /* Aqui tuve que hacer un desmadre, queria emitir un evento
+                           al ColorSize Livewire Component, pero no me dejo, asi que
+                           primero lo envio al componente actual (EditProduct), al 
+                           metodo deleteColorSize y en ese metodo emito el de ColorSize
+                           para mandarlo y ejecutar el metodo que deberia */
+                        @this.call('deleteColorSize',pivot);
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            })
+    </script>
+    
     @endpush
 </div>

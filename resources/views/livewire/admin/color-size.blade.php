@@ -92,7 +92,7 @@
 
                             <x-danger-button
                                 {{--Evento para eliminar y swetAlert--}}
-                                wire:click="$dispatch('deletePivot',{{$size_color->pivot->id}})"
+                                wire:click="$dispatch('deleteColorSize',{{$size_color->pivot->id}})"
                             >
                                 Eliminar
                             </x-danger-button>
