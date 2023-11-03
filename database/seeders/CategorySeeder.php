@@ -19,22 +19,18 @@ class CategorySeeder extends Seeder
             [
                 'name' => 'Hombres',
                 'slug' => Str::slug('Hombres'),
-                'icon' => '<span class="material-icons-outlined">man</span>',
             ],
             [
                 'name' => 'Mujeres',
                 'slug' => Str::slug('Mujeres'),
-                'icon' => '<span class="material-icons-outlined">woman</span>',
             ],
             [
                 'name' => 'Niños',
                 'slug' => Str::slug('Niños'),
-                'icon' => '<span class="material-icons-outlined">child_friendly</span>',
             ],
             [
                 'name' => 'Accesorios',
                 'slug' => Str::slug('Accesorios'),
-                'icon' => '<span class="material-icons-outlined">watch</span>'
             ],
 
         ];
