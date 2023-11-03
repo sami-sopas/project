@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 class EditProduct extends Component
 {
     public $categories, $subcategories, $category_id, $subcategory_id, $subcategory;
-    public Product $product;
+    public ?Product $product;
     //Propiedades del product, ya que no funciono el product.name etc
     public $name, $slug, $description, $price, $quantity;
     
@@ -30,6 +30,8 @@ class EditProduct extends Component
 
     public function mount(Product $product)
     {
+        
+
         $this->product = $product;
 
         $this->categories = Category::all();
@@ -134,6 +136,32 @@ class EditProduct extends Component
         $this->product = $this->product->fresh();
     }
 
+    //Eliminar producto completamente
+    public function delete()
+    {
+        //Recuperar imagenes que tenga el producto
+        $images = $this->product->images;
+
+        //Recorrerlas
+        foreach($images as $image)
+        {
+            //Eliminar registro de la BD y de disco
+            Storage::delete($image->url);
+            $image->delete();
+        }
+
+
+        //Eliminar producto (No funciono de esta panera)
+        //$this->product->delete();
+
+        $this->product->delete();
+        
+        // Asigna null a la propiedad $product después de eliminarlo (Para que Livewire no truene)
+        $this->product = null;
+
+        return redirect()->route('admin.index');
+    }
+
     /*Metodo que se dispara al eliminar un Color de una talla,
       este se ejecuta desde el sweetAlert del editProduct y se envia a traves
       del boton eliminar del componente ColorSize, de aqui se manda al metodo delete
@@ -142,6 +170,7 @@ class EditProduct extends Component
      {
         $this->dispatch('delete', pivot: $pivot)->to(ColorSize::class);
      }
+
 
     public function render()
     {
