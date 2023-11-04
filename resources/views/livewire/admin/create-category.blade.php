@@ -84,10 +84,10 @@
                 <tbody class="divide-y divide-gray-300">
                     @foreach ($categories as $category)
                         <tr>
-                            <td class="py-2 ">
-                                <span class="capitalize">
+                            <td class="py-2">
+                                <a href="{{route('admin.categories.show',$category)}}" class="capitalize underline hover:text-blue-500">
                                     {{ $category->name }}
-                                </span>
+                                </a>
                             </td>
                             <td class="py-2 ">
                                 <div class="flex divide-x divide-gray-300 font-semibold">

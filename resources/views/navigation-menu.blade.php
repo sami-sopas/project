@@ -15,7 +15,7 @@
                     <x-nav-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')">
                         Productos
                     </x-nav-link>
-                    <x-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')">
+                    <x-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.*')">
                         Categorias
                     </x-nav-link>
                 </div>
@@ -146,7 +146,7 @@
                 Productos
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.index')">
+            <x-responsive-nav-link href="{{ route('admin.categories.index') }}" :active="request()->routeIs('admin.categories.*')">
                 Categorias
             </x-responsive-nav-link>
         </div>
