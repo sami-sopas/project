@@ -19,7 +19,7 @@ return new class extends Migration
             $table->float('price');
             
             //LLave foranea de subcategory
-            $table->foreignId('subcategory_id')->constrained('subcategories');
+            $table->foreignId('subcategory_id')->constrained('subcategories')->onDelete('cascade');
 
             $table->integer('quantity')->nullable();
 

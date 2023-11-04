@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('size')->default(false);
             
             //LLave foranea a category
-            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
 
             $table->timestamps();
         });

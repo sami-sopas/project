@@ -78,7 +78,24 @@ class CreateCategory extends Component
         //Generar otro id para la imagen y asi que no aparezca con la info anterior en el campo de file
         $this->rand = rand();
 
+        //Actualizar categorias
+        $this->getCategories();
 
+        //Emitir evento para el mensaje de Categoria agregada
+        $this->dispatch('saved');
+
+
+    }
+
+    //Evento que se emite desde el sweet aler, recibe el ID desde ahi
+    public function deleteCategory($categoryId)
+    {
+        $category = Category::find($categoryId);
+
+        if ($category) {
+            $category->delete();
+            $this->getCategories();
+        }
     }
 
     public function render()

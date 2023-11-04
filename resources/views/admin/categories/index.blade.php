@@ -4,4 +4,6 @@
         @livewire('admin.create-category')
     </div>
 
+    
+
 </x-admin-layout>
