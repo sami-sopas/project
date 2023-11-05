@@ -8,6 +8,8 @@ use App\Livewire\Admin\ShowCategory;
 
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Models\Order;
 
 //Ver productos, controlado por componente de Livewire
 Route::get('/',ShowProducts::class)->name('admin.index');
@@ -26,3 +28,7 @@ Route::get('categories',[CategoryController::class,'index'])->name('admin.catego
 
 //Ver categorias con componente de livewire (para de ahi manejar las subcategorias)
 Route::get('categories/{category}',ShowCategory::class)->name('admin.categories.show');
+
+//Administrar ordenes
+Route::get('orders',[OrderController::class,'index'])->name('admin.orders.index');
+Route::get('orders/{order}',[OrderController::class,'show'])->name('admin.orders.show');
