@@ -97,7 +97,7 @@ class SubcategorySeeder extends Seeder
         {
             //Primero llamamos al factory que es el que crea la imagen
             //Despues creamos la subcategory pasandole el array
-            Subcategory::factory(1)->create($subcategory);
+            Subcategory::create($subcategory);
         }
     }
 }

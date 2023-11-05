@@ -132,7 +132,7 @@
             <div class="product-box">
 
                 <div class="product-grid gap-8">
-                    @foreach ($products as $product)
+                    @forelse ($products as $product)
                         <div class="showcase">
                             <div class="showcase-banner">
                                 <!-- METERLE IMAGENES MEDIO ALTAS PA Q SE VEA BIEN LOL -->
@@ -174,7 +174,12 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div>
+                            No hay nada mano
+                        </div>
+                    
+                    @endforelse
                     <!-- Paginación FALTA ARREGLARLO PARA QUE SE VEA BIEN-->
                     <div class="w-full">
                         <div class="flex justify-between items-center">

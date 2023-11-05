@@ -13,6 +13,9 @@ class CategoryFilter extends Component
 
     public $category, $subcategoria;
 
+    //Mostrar informacion en la url
+    protected $queryString = ['subcategoria'];
+
     public function render()
     {
         /*Rescatar los productos correspondientes a esa categoria
@@ -34,14 +37,22 @@ class CategoryFilter extends Component
         }
         
         //Aqui ya tenemos la coleccion de registros
-        $products = $productsQuery->paginate(18);
+        $products = $productsQuery->paginate(2);
 
         return view('livewire.category-filter',compact('products'));
+    }
+
+    /*Se activa cuando seleccionemos una subcategoria del filtro,
+     reseteamos la paginacion pa que no se bugie */
+    public function updatedSubcategoria()
+    {
+        $this->resetPage();
     }
 
     //Resetear los valores al dar click a boton de eliminar filtos
     public function clean()
     {
         $this->reset(['subcategoria']);
+        $this->resetPage();
     }
 }

@@ -133,7 +133,9 @@
 
                                 @foreach ($category->subcategories as $subcategory)
                                     <li class="panel-list-item">
-                                        <a href="#">{{ $subcategory->name }}</a>
+                                        {{-- Dirigir a la categoria que pertenece,
+                                            con la subcategoria seleccionada ya en esa vista LOL --}}
+                                        <a href="{{ route('categories.show',$category) . '?subcategoria=' . $subcategory->name}}">{{ $subcategory->name }}</a>
                                     </li>
                                 @endforeach
                                 <!-- Imagenes de bajo de cada categoria -->
@@ -156,7 +158,7 @@
                         <ul class="dropdown-list">
                             @foreach ($category->subcategories as $subcategory)
                                 <li class="dropdown-item">
-                                    <a href="#">{{ $subcategory->name }}</a>
+                                    <a href="{{ route('categories.show',$category) . '?subcategoria=' . $subcategory->name}}">{{ $subcategory->name }}</a>
                                 </li>
                             @endforeach
                         </ul>
