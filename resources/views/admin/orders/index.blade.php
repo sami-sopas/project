@@ -2,17 +2,8 @@
     <div class="container py-12">
 
         <!-- Cuadros de ordenes informativos -->
-        <section class="grid grid-cols-5 gap-6 text-white font-semibold">
-            <a href="{{ route('admin.orders.index') . '?status=1'}}" class="bg-red-500 bg-opacity-80 rounded-lg px-12 pt-8 pb-4">
-                <p class="text-center text-2xl">
-                    {{ $pending }}
-                </p>
-                <p class="uppercase text-center">Pendiente</p>
-                <p class="text-center text-2xl mt-2">
-                    <i class="fas fa-business-time"></i>
-                </p>
-            </a>
-
+        <section class="grid grid-cols-4 gap-6 text-white font-semibold">
+           
             <a href="{{ route('admin.orders.index') . '?status=2'}}" class="bg-gray-500 bg-opacity-80 rounded-lg px-12 pt-8 pb-4">
                 <p class="text-center text-2xl">
                     {{ $received }}

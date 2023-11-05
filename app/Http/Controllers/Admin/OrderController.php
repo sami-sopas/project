@@ -11,8 +11,8 @@ class OrderController extends Controller
     public function index()
     {
 
-        //query dinamica, depende de lo que se envie por la URL
-        $orders = Order::query();
+        //query dinamica, depende de lo que se envie por la URL, (no mostramos ordenes pendientes)
+        $orders = Order::query()->where('status','<>',1);
 
         //Filtro
         if(request('status')){
@@ -40,7 +40,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        return view('admin.orders.show');
+        return view('admin.orders.show',compact('order'));
     }
 }
 
